@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class RoundUpdater : MonoBehaviour
+public class RoundUpdater : MonoBehaviour 
 {
     [SerializeField] private TextMeshProUGUI roundUpdaterText;
     [SerializeField] private TextMeshProUGUI countDownText;
@@ -12,29 +12,78 @@ public class RoundUpdater : MonoBehaviour
     public event EventHandler OnCountDownStart;
     public event EventHandler OnCountDownEnd;
 
-    private void Awake()
+    private bool isCountingDown;
+    private float remainingTime;
+
+    public void Initialize(RoundData data)
     {
-                
+        Show();
+        UpdateRoundText(data.Round);
+        StartRound();
+        StartCountDown(data.CountDown);
     }
 
-    public void SetData(RoundData data)
+    private void StartRound()
     {
-        roundUpdaterText.text = "Round " + data.Round;
-        countDownText.text = data.CountDown.ToString();
+        OnRoundStart?.Invoke(this, EventArgs.Empty);
     }
 
-    public void OnEnable()
+    private void StartCountDown(float time)
     {
+        remainingTime = time;
+        isCountingDown = true;
+        OnCountDownStart?.Invoke(this, EventArgs.Empty);
+        Debug.Log("CountDown Started");
+    }
+
+    private void Update()
+    {
+        if (!isCountingDown) return;
+        UpdateTimer();
+    }
+
+    private void UpdateTimer()
+    {
+        remainingTime -= Time.deltaTime;
         
+        if (remainingTime <= 0)
+        {
+            EndCountDown();
+            return;
+        }
+
+        UpdateCountdownDisplay();
     }
 
-    public void Show()
+    private void EndCountDown()
+    {
+        remainingTime = 0;
+        isCountingDown = false;
+        UpdateCountdownDisplay();
+        
+        Debug.Log("CountDown End");
+        OnCountDownEnd?.Invoke(this, EventArgs.Empty);
+        OnRoundEnd?.Invoke(this, EventArgs.Empty);
+        Hide();
+    }
+
+    private void UpdateRoundText(int round)
+    {
+        roundUpdaterText.text = "Round " + round;
+    }
+
+    private void UpdateCountdownDisplay()
+    {
+        countDownText.text = Mathf.CeilToInt(remainingTime).ToString();
+    }
+
+    private void Show()
     {
         if(!gameObject.activeSelf)
             gameObject.SetActive(true);
     }
 
-    public void Hide()
+    private void Hide()
     {
         if(gameObject.activeSelf)
             gameObject.SetActive(false);
@@ -44,12 +93,12 @@ public class RoundUpdater : MonoBehaviour
 public class RoundData
 {
     private int _round;
-    private int _countDown;
+    private float _countDown;
     
     public int Round => _round;
-    public int CountDown => _countDown;
+    public float CountDown => _countDown;
     
-    public RoundData(int round, int countDown)
+    public RoundData(int round, float countDown)
     {
         this._round = round;
         this._countDown = countDown;
