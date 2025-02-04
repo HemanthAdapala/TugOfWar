@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239da734b52f81949b2852d700dc011e, type: 3}
+  m_Name: Thunder Anchor
+  m_EditorClassIdentifier: 
+  cardName: Thunder Anchor
+  cardArtwork: {fileID: 0}
+  role: Anchor
+  strength: 68
+  speed: 26
+  stamina: 48
+  technique: 55
+  weight: 4
+  pullPower: 123
+  defense: 52
+  abilityDescription: "Lightning Grip \u2013 Pulls faster for 5 seconds after losing
+    50% stamina."
+  lore: 
+  uniqueAbility: 2

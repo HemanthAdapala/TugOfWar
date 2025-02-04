@@ -1135,6 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundUpdater: {fileID: 124876424894401221, guid: ca91df64ee4fbbb438f7d73b6475b0f2, type: 3}
   canvasParent: {fileID: 22622027}
+  cardsPanelController: {fileID: 5820251337033044176, guid: 1fa2ca2f235a4cc48ad6d4d79fed43a3, type: 3}
 --- !u!1 &1911976706
 GameObject:
   m_ObjectHideFlags: 0

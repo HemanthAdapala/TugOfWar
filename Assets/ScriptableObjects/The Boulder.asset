@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239da734b52f81949b2852d700dc011e, type: 3}
+  m_Name: The Boulder
+  m_EditorClassIdentifier: 
+  cardName: The Boulder
+  cardArtwork: {fileID: 0}
+  role: Anchor
+  strength: 99
+  speed: 73
+  stamina: 85
+  technique: 2
+  weight: 67
+  pullPower: 101
+  defense: 152
+  abilityDescription: "Unshakable \u2013 Gains +20% defense when stamina drops below
+    30%."
+  lore: 
+  uniqueAbility: 3

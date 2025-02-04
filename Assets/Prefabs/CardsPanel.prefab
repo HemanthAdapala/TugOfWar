@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 7262445155901213767}
   - component: {fileID: 8242774778289644589}
   - component: {fileID: 3494079705965566214}
+  - component: {fileID: 5820251337033044176}
   m_Layer: 5
   m_Name: CardsPanel
   m_TagString: Untagged
@@ -176,3 +177,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5820251337033044176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489341494333473880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ccefdb3347f3a448fd6f65acfcdf1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardDatas:
+  - {fileID: 11400000, guid: 1fe59327aa9677248affba01dc59261f, type: 2}
+  - {fileID: 11400000, guid: 5f324c446a1189d488652778edf2eea3, type: 2}
+  - {fileID: 11400000, guid: 64e68c3882605e442bf245a098857b62, type: 2}
+  - {fileID: 11400000, guid: 9ebc33398bd25d24caa0f0f5ef7c51bd, type: 2}
+  - {fileID: 11400000, guid: ce29944f9603b6b4da63aa9d4aa8df75, type: 2}
+  - {fileID: 11400000, guid: c4a201a420b969741871d4187c451b9f, type: 2}
+  _cardDataPrefab: {fileID: -2287310800941964026, guid: 9d77a0b234a2b484ab02e21dfcc98108, type: 3}
+  _cardsParent: {fileID: 8816573151851202165}

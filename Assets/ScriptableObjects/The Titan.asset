@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239da734b52f81949b2852d700dc011e, type: 3}
+  m_Name: The Titan
+  m_EditorClassIdentifier: 
+  cardName: The Titan
+  cardArtwork: {fileID: 0}
+  role: 
+  strength: 49
+  speed: 3
+  stamina: 56
+  technique: 28
+  weight: 100
+  pullPower: 77
+  defense: 156
+  abilityDescription: "Earthquake Pull \u2013 A massive tug that stuns opponents
+    for 2 seconds."
+  lore: 
+  uniqueAbility: 3

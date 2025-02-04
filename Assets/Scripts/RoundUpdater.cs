@@ -10,17 +10,20 @@ public class RoundUpdater : MonoBehaviour
     public event EventHandler OnRoundStart;
     public event EventHandler OnRoundEnd;
     public event EventHandler OnCountDownStart;
-    public event EventHandler OnCountDownEnd;
+    
+    private Action OnCountDownEnd = null;
 
     private bool isCountingDown;
     private float remainingTime;
 
-    public void Initialize(RoundData data)
+    public void Initialize(RoundData data,Action onCountDownCompleted)
     {
+        OnCountDownEnd = onCountDownCompleted;
         Show();
         UpdateRoundText(data.Round);
         StartRound();
         StartCountDown(data.CountDown);
+        //onCountDownCompleted?.Invoke();
     }
 
     private void StartRound()
@@ -62,7 +65,7 @@ public class RoundUpdater : MonoBehaviour
         UpdateCountdownDisplay();
         
         Debug.Log("CountDown End");
-        OnCountDownEnd?.Invoke(this, EventArgs.Empty);
+        OnCountDownEnd?.Invoke();
         OnRoundEnd?.Invoke(this, EventArgs.Empty);
         Hide();
     }
