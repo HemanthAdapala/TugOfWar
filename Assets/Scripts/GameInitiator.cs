@@ -11,7 +11,7 @@ public class GameInitiator : MonoBehaviour
     void Awake()
     {
         //Set RoundUpdater
-        SetUpRoundUpdater();
+        //SetUpRoundUpdater();
         
     }
 

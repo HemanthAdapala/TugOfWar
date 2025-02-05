@@ -6,22 +6,45 @@ using DG.Tweening; // Add DOTween namespace
 
 public class CardDataUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI cardNameText;
+    //MAIN PAGE
+    [SerializeField] private TextMeshProUGUI cardName;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private TextMeshProUGUI cardRole;
+    [SerializeField] private TextMeshProUGUI strength;
+    [SerializeField] private TextMeshProUGUI speed;
     [SerializeField] private TextMeshProUGUI stamina;
+    [SerializeField] private TextMeshProUGUI technique;
     [SerializeField] private TextMeshProUGUI weight;
-    [SerializeField] private TextMeshProUGUI pullSpeed;
+
+    //FLIPPED PAGE
+    [SerializeField] private TextMeshProUGUI pullPower;
+    [SerializeField] private TextMeshProUGUI defense;
+    [SerializeField] private TextMeshProUGUI abilityDescription;
+    [SerializeField] private TextMeshProUGUI lore;
+    [SerializeField] private TextMeshProUGUI uniqueAbility;
+
+
     [SerializeField] private Button button; 
 
     private bool _isAnimating = false;
     private Sequence _flipSequence;
 
-    public void Initialize(CardData cardData)
+    public void SetCardData(CardData cardData)
     {
-        // Debug.Log("CardDataUI initialized:- " + cardData.name);
-        // cardNameText.text = cardData.name;
-        // stamina.text = cardData.stamina.ToString(CultureInfo.InvariantCulture);
-        // weight.text = cardData.weight.ToString(CultureInfo.InvariantCulture);
-        // pullSpeed.text = cardData.pullSpeed.ToString(CultureInfo.InvariantCulture);
+        cardName.text = cardData.cardName;
+        cardImage.sprite = cardData.cardArtwork;
+        cardRole.text = cardData.role;
+        strength.text = cardData.strength.ToString(CultureInfo.InvariantCulture);
+        speed.text = cardData.speed.ToString(CultureInfo.InvariantCulture);
+        stamina.text = cardData.stamina.ToString(CultureInfo.InvariantCulture);
+        technique.text = cardData.technique.ToString(CultureInfo.InvariantCulture);
+        weight.text = cardData.weight.ToString(CultureInfo.InvariantCulture);
+
+        pullPower.text = cardData.pullPower.ToString(CultureInfo.InvariantCulture);
+        defense.text = cardData.defense.ToString(CultureInfo.InvariantCulture);
+        abilityDescription.text = cardData.abilityDescription;
+        lore.text = cardData.lore;
+        uniqueAbility.text = cardData.uniqueAbility.ToString();
         // button.onClick.AddListener(OnClickButton);
     }
 

@@ -19,7 +19,7 @@ public class CardsPanelController : MonoBehaviour
         {
             var card = Instantiate(_cardDataPrefab, _cardsParent);
             CardDataUI cardUI = card.GetComponent<CardDataUI>();
-            cardUI.Initialize(cardData);
+            cardUI.SetCardData(cardData);
         }
     }
 }
