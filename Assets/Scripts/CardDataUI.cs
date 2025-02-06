@@ -2,10 +2,12 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening; // Add DOTween namespace
+using DG.Tweening;
+using System; // Add DOTween namespace
 
 public class CardDataUI : MonoBehaviour
 {
+    #region Fields
     //MAIN PAGE
     [SerializeField] private TextMeshProUGUI cardName;
     [SerializeField] private Image cardImage;
@@ -22,12 +24,15 @@ public class CardDataUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI abilityDescription;
     [SerializeField] private TextMeshProUGUI lore;
     [SerializeField] private TextMeshProUGUI uniqueAbility;
-
-
     [SerializeField] private Button button; 
+
 
     private bool _isAnimating = false;
     private Sequence _flipSequence;
+
+    public static event Action<CardData> OnCardClicked;
+
+    #endregion
 
     public void SetCardData(CardData cardData)
     {
@@ -49,12 +54,16 @@ public class CardDataUI : MonoBehaviour
         lore.text = cardData.lore;
         }
         uniqueAbility.text = cardData.uniqueAbility.ToString();
-        button.onClick.AddListener(OnClickButton);
+        button.onClick.AddListener(() => 
+        {
+            OnClickButton(cardData);
+        });
     }
 
-    private void OnClickButton()
+    private void OnClickButton(CardData cardData)
     {
         Debug.Log("Button Clicked");
+        OnCardClicked?.Invoke(cardData);
     }
 
     private void FlipCard()
