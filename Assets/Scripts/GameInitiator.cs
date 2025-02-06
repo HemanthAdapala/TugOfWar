@@ -12,20 +12,12 @@ public class GameInitiator : MonoBehaviour
         SetUpRoundUpdater();
     }
 
-    private void StartGame()
-    {
-        
-    }
-
-    private void SetCardsData()
-    {
-        
-    }
-
     private void SetUpRoundUpdater()
     {
-        GameRoundManager roundUpdaterObject = Instantiate(roundUpdater,canvasParent);
+        if(roundUpdater != null && !roundUpdater.gameObject.activeSelf){
+            roundUpdater.gameObject.SetActive(true);
+        }
         RoundData data = new RoundData(1, 10);
-        roundUpdaterObject.SetUpRound(data);
+        roundUpdater.SetUpRound(data);
     }
 }

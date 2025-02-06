@@ -56,5 +56,11 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TugOfWar.sln"
+    "dotnet.defaultSolution": "TugOfWar.sln",
+    "cSpell.words": [
+        "Behaviour",
+        "Datas",
+        "Tweening",
+        "UGUI"
+    ]
 }

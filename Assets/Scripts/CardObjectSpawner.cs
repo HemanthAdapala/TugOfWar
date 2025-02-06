@@ -1,18 +1,20 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using System;
 
 public class CardObjectSpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform targetPoint;
-    [SerializeField] private float spacing = 1.5f;
+    [SerializeField] private float spacing = 1.5f; // Space between cards
 
     [Header("Card Prefab")]
     [SerializeField] private GameObject cardPrefab; // Prefab with visuals/stats
 
-    private List<GameObject> spawnedObjects = new List<GameObject>();
+    private List<GameObject> movingObjects = new List<GameObject>();
+    private bool isMoving = false; // Ensure sequential movement
 
     public void SpawnCardObject(CardData cardData)
     {
@@ -22,49 +24,70 @@ public class CardObjectSpawner : MonoBehaviour
             return;
         }
 
-        // Instantiate the object
+        // Instantiate the object at the spawn point
         GameObject newObj = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, transform);
-        spawnedObjects.Add(newObj);
 
-        // Customize based on CardData (e.g., set strength/speed visuals)
-        CardData cardObject = newObj.GetComponent<CardData>();
-        if (cardObject != null)
+        // Add the object to the list
+        movingObjects.Add(newObj);
+
+        // If not already moving, start movement
+        if (!isMoving)
         {
-            //cardObject.Initialize(cardData);
+            MoveNextObject();
+        }
+    }
+
+    private void MoveNextObject()
+    {
+        if (movingObjects.Count == 0)
+        {
+            isMoving = false;
+            return;
         }
 
-        // Position the object behind the last spawned object
-        Vector3 targetPosition = CalculateTargetPosition();
-        AnimateObject(newObj, targetPosition);
+        isMoving = true;
+
+        // Get the next object to move
+        GameObject objToMove = movingObjects[0];
+
+        // Calculate the correct target position
+        Vector3 finalTargetPosition = CalculateTargetPosition();
+
+        // Calculate intermediate position (X movement first)
+        Vector3 intermediatePosition = new Vector3(finalTargetPosition.x, objToMove.transform.position.y, objToMove.transform.position.z);
+
+        // Move in two steps (X first, then Z)
+        Sequence moveSequence = DOTween.Sequence();
+        moveSequence.Append(objToMove.transform.DOMoveX(intermediatePosition.x, 1f).SetEase(Ease.Linear)) // Move in X
+                    .Append(objToMove.transform.DOMoveZ(finalTargetPosition.z, 1f).SetEase(Ease.Linear)) // Move in Z with spacing
+                    .OnComplete(() =>
+                    {
+                        Debug.Log("Object reached the adjusted target!");
+
+                        // Remove from list after movement is completed
+                        movingObjects.RemoveAt(0);
+
+                        // Move the next object in queue
+                        MoveNextObject();
+                    });
     }
 
     private Vector3 CalculateTargetPosition()
     {
-        if (spawnedObjects.Count == 0)
+        if (targetPoint == null)
+        {
+            Debug.LogError("Target Transform is not assigned!");
+            return Vector3.zero;
+        }
+
+        // First object goes directly to the target point
+        if (movingObjects.Count == 1)
         {
             return targetPoint.position;
         }
-        else
-        {
-            GameObject lastObject = spawnedObjects[spawnedObjects.Count - 1];
-            return lastObject.transform.position - new Vector3(0, 0, spacing);
-        }
-    }
 
-    private void AnimateObject(GameObject obj, Vector3 targetPosition)
-    {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(obj.transform.DOMoveX(targetPosition.x, 1f).SetEase(Ease.Linear))
-                .Append(obj.transform.DOMoveZ(targetPosition.z, 1f).SetEase(Ease.Linear))
-                .OnComplete(() => Debug.Log("Object reached target!"));
-    }
-
-    public void StartMovingObjects()
-    {
-        // Trigger gameplay logic (e.g., start tug-of-war)
-        foreach (var obj in spawnedObjects)
-        {
-            // Add tug-of-war movement logic here
-        }
+        // New object moves behind the last placed object
+        GameObject lastObject = movingObjects[movingObjects.Count - 2];
+        return lastObject.transform.position - new Vector3(0, 0, spacing);
     }
 }

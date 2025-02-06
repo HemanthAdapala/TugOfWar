@@ -380,7 +380,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 983711048}
   targetPoint: {fileID: 28255593}
   spacing: 1.5
-  cardPrefab: {fileID: 0}
+  cardPrefab: {fileID: 2389722818476042553, guid: aed81f92fe1f6784e8ba65cb25d6d7e5, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e02569f445dbc948b1892d4a7f12b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0
+  duration: 30
   isRunning: 0
 --- !u!1 &832575517
 GameObject:
@@ -1181,7 +1181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundUpdater: {fileID: 1968146649}
   canvasParent: {fileID: 22622027}
-  cardsPanelController: {fileID: 5820251337033044176, guid: 1fa2ca2f235a4cc48ad6d4d79fed43a3, type: 3}
 --- !u!1 &1911976706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1356,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1903728424}
   targetPoint: {fileID: 1678551302}
   spacing: 1.5
-  cardPrefab: {fileID: 0}
+  cardPrefab: {fileID: 2389722818476042553, guid: 2e878a293b1f27e469d2a761db6c0b85, type: 3}
 --- !u!1 &1968146647
 GameObject:
   m_ObjectHideFlags: 0

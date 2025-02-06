@@ -76,25 +76,17 @@ public class GameRoundManager : MonoBehaviour
         UpdateCountdownDisplay();
         
         Debug.Log("CountDown End");
-        CheckForCurretCardData();
+        CheckForCurrentCardData();
         OnRoundCountDownEnded?.Invoke(this, EventArgs.Empty);
         Hide();
     }
 
-    private void CheckForCurretCardData()
+    private void CheckForCurrentCardData()
     {
         if(playerCard != null && opponentCard != null){
             OnSentCardDataToLobby?.Invoke(this, new LobbyCardData{playerCard = playerCard, opponentCard = opponentCard});
         }
-        else{
-            if(playerCard == null){
-                cardsPanelController.GetRandomCardForPlayer();
-            }
-            if(opponentCard == null){
-                cardsPanelController.GetRandomCardForOpponent();
-            }
-        }
-
+        //Start from here getting null reference
         Debug.Log("PlayerCard: " + playerCard.cardName + " OpponentCard: " + opponentCard.cardName);
     }
 
@@ -118,6 +110,12 @@ public class GameRoundManager : MonoBehaviour
     {
         if(roundUpdaterPanel.gameObject.activeSelf)
             roundUpdaterPanel.gameObject.SetActive(false);
+    }
+
+    public void SendCardDataToGameRoundManager(CardData pc, CardData oc)
+    {
+        playerCard = pc;
+        opponentCard = oc;
     }
 }
 

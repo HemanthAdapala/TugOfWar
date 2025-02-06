@@ -27,10 +27,7 @@ public class CardDataUI : MonoBehaviour
     [SerializeField] private Button button; 
 
 
-    private bool _isAnimating = false;
-    private Sequence _flipSequence;
-
-    public static event Action<CardData> OnCardClicked;
+    public event Action<CardData> OnCardClicked;
 
     #endregion
 
@@ -66,14 +63,13 @@ public class CardDataUI : MonoBehaviour
         OnCardClicked?.Invoke(cardData);
     }
 
-    private void FlipCard()
-    {
-        
+    private void OnDestroy() {
+        RemoveListeners();
     }
 
-
-    private void OnDestroy()
+    private void RemoveListeners()
     {
-        
+        button.onClick.RemoveAllListeners();
+        OnCardClicked = null;
     }
 }
