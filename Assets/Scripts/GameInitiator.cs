@@ -1,23 +1,16 @@
-using System;
 using UnityEngine;
 
 public class GameInitiator : MonoBehaviour
 {
     [SerializeField] private GameRoundManager roundUpdater;
-    [SerializeField] private Transform canvasParent;
-    
-    void Awake()
-    {
-        //Set RoundUpdater
-        SetUpRoundUpdater();
-    }
 
-    private void SetUpRoundUpdater()
+    private void Awake()
     {
-        if(roundUpdater != null && !roundUpdater.gameObject.activeSelf){
+        if (roundUpdater != null && !roundUpdater.gameObject.activeSelf)
+        {
             roundUpdater.gameObject.SetActive(true);
         }
-        RoundData data = new RoundData(1, 10);
-        roundUpdater.SetUpRound(data);
+
+        // Removed `SetUpRound()` from here, handled in GameRoundManager Start()
     }
 }

@@ -17,7 +17,7 @@ public class GameLobby : MonoBehaviour
         // Initialize cards for the round
         playerSelectedCards.Clear();
         opponentSelectedCards.Clear();
-        timer.StartTimer();
+        //timer.StartTimer();
         gameRoundManager.OnSentCardDataToLobby += OnSentCardDataToLobby_GameRoundManager;
     }
 

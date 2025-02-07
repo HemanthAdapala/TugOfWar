@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
-using System;
 
 public class CardObjectSpawner : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class CardObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject cardPrefab; // Prefab with visuals/stats
 
     private List<GameObject> movingObjects = new List<GameObject>();
-    private bool isMoving = false; // Ensure sequential movement
+    private bool isMoving = false; // Ensures sequential movement
 
     public void SpawnCardObject(CardData cardData)
     {
@@ -30,64 +29,27 @@ public class CardObjectSpawner : MonoBehaviour
         // Add the object to the list
         movingObjects.Add(newObj);
 
-        // If not already moving, start movement
+        // Start movement only for the new object
         if (!isMoving)
         {
-            MoveNextObject();
+            MoveObject(newObj);
         }
     }
 
-    private void MoveNextObject()
+    private void MoveObject(GameObject objToMove)
     {
-        if (movingObjects.Count == 0)
-        {
-            isMoving = false;
-            return;
-        }
-
         isMoving = true;
 
-        // Get the next object to move
-        GameObject objToMove = movingObjects[0];
-
-        // Calculate the correct target position
-        Vector3 finalTargetPosition = CalculateTargetPosition();
-
-        // Calculate intermediate position (X movement first)
-        Vector3 intermediatePosition = new Vector3(finalTargetPosition.x, objToMove.transform.position.y, objToMove.transform.position.z);
+        // Determine target position
+        Vector3 targetPos = (movingObjects.Count == 1) ? targetPoint.position : movingObjects[movingObjects.Count - 2].transform.position - new Vector3(0, 0, spacing);
 
         // Move in two steps (X first, then Z)
         Sequence moveSequence = DOTween.Sequence();
-        moveSequence.Append(objToMove.transform.DOMoveX(intermediatePosition.x, 1f).SetEase(Ease.Linear)) // Move in X
-                    .Append(objToMove.transform.DOMoveZ(finalTargetPosition.z, 1f).SetEase(Ease.Linear)) // Move in Z with spacing
+        moveSequence.Append(objToMove.transform.DOMoveX(targetPos.x, 1f).SetEase(Ease.Linear)) // Move in X
+                    .Append(objToMove.transform.DOMoveZ(targetPos.z, 1f).SetEase(Ease.Linear)) // Move in Z
                     .OnComplete(() =>
                     {
-                        Debug.Log("Object reached the adjusted target!");
-
-                        // Remove from list after movement is completed
-                        movingObjects.RemoveAt(0);
-
-                        // Move the next object in queue
-                        MoveNextObject();
+                        isMoving = false; // Allow new movement only when a new card is added
                     });
-    }
-
-    private Vector3 CalculateTargetPosition()
-    {
-        if (targetPoint == null)
-        {
-            Debug.LogError("Target Transform is not assigned!");
-            return Vector3.zero;
-        }
-
-        // First object goes directly to the target point
-        if (movingObjects.Count == 1)
-        {
-            return targetPoint.position;
-        }
-
-        // New object moves behind the last placed object
-        GameObject lastObject = movingObjects[movingObjects.Count - 2];
-        return lastObject.transform.position - new Vector3(0, 0, spacing);
     }
 }

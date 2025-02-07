@@ -63,61 +63,61 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Timer timer;
 
-    private void Start()
-    {
-        preRoundTimer = gameObject.AddComponent<Timer>();
-        gameplayTimer = gameObject.AddComponent<Timer>();
+    // private void Start()
+    // {
+    //     preRoundTimer = gameObject.AddComponent<Timer>();
+    //     gameplayTimer = gameObject.AddComponent<Timer>();
 
-        StartNewRound();
-    }
+    //     StartNewRound();
+    // }
 
-    private void StartNewRound()
-    {
-        if (currentRound > totalRounds)
-        {
-            Debug.Log("Game Over!");
-            currentState = GameState.GameOver;
-            return;
-        }
+    // private void StartNewRound()
+    // {
+    //     if (currentRound > totalRounds)
+    //     {
+    //         Debug.Log("Game Over!");
+    //         currentState = GameState.GameOver;
+    //         return;
+    //     }
 
-        Debug.Log($"Round {currentRound} started!");
-        currentState = GameState.PreRound;
+    //     Debug.Log($"Round {currentRound} started!");
+    //     currentState = GameState.PreRound;
 
-        // Start the pre-round timer
-        preRoundTimer.duration = preRoundDuration;
-        preRoundTimer.OnTimerFinished += OnPreRoundTimerFinished;
-        preRoundTimer.StartTimer();
-    }
+    //     // Start the pre-round timer
+    //     preRoundTimer.duration = preRoundDuration;
+    //     preRoundTimer.OnTimerFinished += OnPreRoundTimerFinished;
+    //     preRoundTimer.StartTimer();
+    // }
 
 
-    private void OnPreRoundTimerFinished(object sender, EventArgs e)
-    {
-        preRoundTimer.OnTimerFinished -= OnPreRoundTimerFinished;
+    // private void OnPreRoundTimerFinished(object sender, EventArgs e)
+    // {
+    //     preRoundTimer.OnTimerFinished -= OnPreRoundTimerFinished;
 
-        Debug.Log("Pre-round timer finished. Starting gameplay phase.");
-        currentState = GameState.Gameplay;
+    //     Debug.Log("Pre-round timer finished. Starting gameplay phase.");
+    //     currentState = GameState.Gameplay;
 
-        // Start the gameplay timer
-        gameplayTimer.duration = gameplayDuration;
-        gameplayTimer.OnTimerFinished += OnGameplayTimerFinished;
-        gameplayTimer.StartTimer();
-    }
+    //     // Start the gameplay timer
+    //     gameplayTimer.duration = gameplayDuration;
+    //     gameplayTimer.OnTimerFinished += OnGameplayTimerFinished;
+    //     gameplayTimer.StartTimer();
+    // }
 
-    private void OnGameplayTimerFinished(object sender, EventArgs e)
-    {
-        gameplayTimer.OnTimerFinished -= OnGameplayTimerFinished;
+    // private void OnGameplayTimerFinished(object sender, EventArgs e)
+    // {
+    //     gameplayTimer.OnTimerFinished -= OnGameplayTimerFinished;
 
-        Debug.Log("Gameplay phase finished. Ending round.");
-        currentState = GameState.RoundEnd;
+    //     Debug.Log("Gameplay phase finished. Ending round.");
+    //     currentState = GameState.RoundEnd;
 
-        // Proceed to the next round
-        currentRound++;
-        StartNewRound();
-    }
+    //     // Proceed to the next round
+    //     currentRound++;
+    //     StartNewRound();
+    // }
 
-    public void StartGame(){
+    // public void StartGame(){
 
-    }
+    // }
 }
 
 public enum GameState
