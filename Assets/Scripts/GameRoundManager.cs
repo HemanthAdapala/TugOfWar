@@ -10,6 +10,7 @@ public class GameRoundManager : MonoBehaviour
     [SerializeField] private CardsPanelController cardsPanelController;
     [SerializeField] private Transform roundUpdaterPanel;
     [SerializeField] private Timer timer;
+    [SerializeField] private SliderFillController sliderFillController;
 
     public event EventHandler OnRoundCountDownStarted;
     public event EventHandler OnRoundCountDownEnded;
@@ -29,9 +30,49 @@ public class GameRoundManager : MonoBehaviour
     private CardData playerCard;
     private CardData opponentCard;
 
+    private void Awake() {
+        //Disable the timer
+        timer.gameObject.SetActive(false);
+        //Disable the cards panel
+        cardsPanelController.gameObject.SetActive(false);
+
+        //Check if Round Updater GameObject is disabled then Enable the Round Updater GameObject
+        if (!roundUpdaterPanel.gameObject.activeSelf)
+        {
+            roundUpdaterPanel.gameObject.SetActive(true);
+        }
+    }
+
+
+
+
     private async void Start()
     {
         await StartNewRound();
+        OnRoundCountDownStarted += OnRoundCountDownStartedEvent_GameRoundManager;
+        OnRoundCountDownEnded += OnRoundCountDownEndedEvent_GameRoundManager;
+    }
+
+    private void OnRoundCountDownEndedEvent_GameRoundManager(object sender, EventArgs e)
+    {
+        //Check if Timer is Disabled then Enable the timer
+        if (!timer.gameObject.activeSelf)
+        {
+            timer.gameObject.SetActive(true);
+            StartTimer(); // Start the round timer
+            //Check if slider fill controller is disabled then Enable the slider fill controller
+            if (!sliderFillController.gameObject.activeSelf)
+            {
+                sliderFillController.gameObject.SetActive(true);
+            }
+
+        }
+    }
+
+
+    private void OnRoundCountDownStartedEvent_GameRoundManager(object sender, EventArgs e)
+    {
+        
     }
 
     private async Task StartNewRound()
@@ -41,14 +82,11 @@ public class GameRoundManager : MonoBehaviour
         Debug.Log($"Setting up Round {currentRound}");
 
         SetUpRound(new RoundData(currentRound, 3));
-
-        // Wait 10 seconds for card selection
-        Debug.Log("Waiting 10 seconds for card selection...");
-        await Task.Delay(TimeSpan.FromSeconds(10));
-
-        Debug.Log("10 seconds over. Starting the timer now.");
-        StartTimer(); // Start the round timer
+        Show();
+        await Task.Delay(100); // Add small delay between setup steps
     }
+
+
 
     private void StartTimer()
     {
@@ -85,8 +123,7 @@ public class GameRoundManager : MonoBehaviour
     public void SetUpRound(RoundData data)
     {
         currentRound = data.Round;
-        Show();
-        InitializeCardsPanel();
+        //InitializeCardsPanel();
         UpdateRoundText(currentRound, maxRounds);
         StartCountDown(data.CountDown);
     }
@@ -97,7 +134,7 @@ public class GameRoundManager : MonoBehaviour
         {
             cardsPanelController.gameObject.SetActive(true);
         }
-        cardsPanelController.Initialize();
+        //cardsPanelController.Initialize();
     }
 
     private void StartCountDown(float time)

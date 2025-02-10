@@ -28,9 +28,9 @@ public class SliderFillController : MonoBehaviour
         }
         
         sliderImage.fillAmount = 0f; // Start with an empty slider
-        
+
         // Start the fill animation
-        //StartFillAnimation(0f);
+        StartFillAnimation(0f);
     }
 
     public void StartFillAnimation(float startFillAmount)
