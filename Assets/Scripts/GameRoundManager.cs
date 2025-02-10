@@ -23,7 +23,7 @@ public class GameRoundManager : MonoBehaviour
     private bool isCountingDown;
     private float remainingTime;
     private int currentRound = 1;
-    private int maxRounds = 5;
+    private int maxRounds = 3;
     private bool isTimerInitialized = false; 
 
     private CardData playerCard;
@@ -40,7 +40,7 @@ public class GameRoundManager : MonoBehaviour
 
         Debug.Log($"Setting up Round {currentRound}");
 
-        SetUpRound(new RoundData(currentRound, 10));
+        SetUpRound(new RoundData(currentRound, 3));
 
         // Wait 10 seconds for card selection
         Debug.Log("Waiting 10 seconds for card selection...");
