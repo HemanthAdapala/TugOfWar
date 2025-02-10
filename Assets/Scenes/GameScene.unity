@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab35d901cc6abc42b6c3ec9f54257a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerSide: 0
   spawnPoint: {fileID: 983711048}
   targetPoint: {fileID: 28255593}
   spacing: 1.5
@@ -777,9 +778,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1496470493}
-  duration: 150
-  intervalTimer: 30
-  waitForSelectionTime: 10
+  duration: 60
+  intervalTimer: 10
+  waitForSelectionTime: 5
   isRunning: 0
 --- !u!1 &832575517
 GameObject:
@@ -918,7 +919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2:30
+  m_text: XX:XX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0843c57d47492bb4aa5bccbd233e201c, type: 2}
   m_sharedMaterial: {fileID: -6392789457093817633, guid: 0843c57d47492bb4aa5bccbd233e201c, type: 2}
@@ -1183,7 +1184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundUpdater: {fileID: 1968146649}
-  canvasParent: {fileID: 22622027}
 --- !u!1 &1911976706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,10 +1356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab35d901cc6abc42b6c3ec9f54257a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerSide: 1
   spawnPoint: {fileID: 1903728424}
   targetPoint: {fileID: 1678551302}
   spacing: 1.5
-  cardPrefab: {fileID: 2389722818476042553, guid: 2e878a293b1f27e469d2a761db6c0b85, type: 3}
+  cardPrefab: {fileID: 2389722818476042553, guid: a8065a2cfb1e16b43997fa14ebc06528, type: 3}
 --- !u!1 &1968146647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,6 +1506,10 @@ PrefabInstance:
     - target: {fileID: 1711790050521739044, guid: ca91df64ee4fbbb438f7d73b6475b0f2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365681819674413719, guid: ca91df64ee4fbbb438f7d73b6475b0f2, type: 3}
+      propertyPath: m_text
+      value: Xs
       objectReference: {fileID: 0}
     - target: {fileID: 3223414394548579730, guid: ca91df64ee4fbbb438f7d73b6475b0f2, type: 3}
       propertyPath: m_SizeDelta.y
