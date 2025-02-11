@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: Trickster Fox
   m_EditorClassIdentifier: 
   cardName: Trickster Fox
+  cardColor: {r: 0.9846988, g: 1, b: 0, a: 1}
+  cardValue: 4
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Trickster
-  strength: 54
-  speed: 31
-  stamina: 65
-  technique: 61
-  weight: 41
-  pullPower: 115
-  defense: 106
+  strength: 46
+  speed: 90
+  stamina: 85
+  technique: 50
+  weight: 15
+  pullPower: 96
+  defense: 100
   abilityDescription: "Feint Pull \u2013 Fakes a tug, confusing opponents and reducing
     their stamina by 10%."
   lore: 
-  uniqueAbility: 5
+  uniqueAbility: 2

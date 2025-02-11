@@ -33,6 +33,7 @@ public class CardDataEditor : Editor
         cardData.stamina = Random.Range(1, 101);
         cardData.technique = Random.Range(1, 101);
         cardData.weight = Random.Range(1, 101);
+        cardData.cardValue = Random.Range(1, 8);
 
         // Randomize derived stats (optional)
         cardData.pullPower = cardData.strength + cardData.technique;

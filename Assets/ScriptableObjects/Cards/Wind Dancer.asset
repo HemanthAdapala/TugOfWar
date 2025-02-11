@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: Wind Dancer
   m_EditorClassIdentifier: 
   cardName: Wind Dancer
+  cardColor: {r: 1, g: 0, b: 0, a: 1}
+  cardValue: 2
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: 
-  strength: 18
-  speed: 32
-  stamina: 62
-  technique: 4
-  weight: 24
-  pullPower: 22
-  defense: 86
+  strength: 19
+  speed: 64
+  stamina: 26
+  technique: 28
+  weight: 37
+  pullPower: 47
+  defense: 63
   abilityDescription: "Gust Dash \u2013 Quickly shifts position, making it harder
     for opponents to counter."
   lore: 
-  uniqueAbility: 3
+  uniqueAbility: 5

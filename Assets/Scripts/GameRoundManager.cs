@@ -70,7 +70,7 @@ public class GameRoundManager : MonoBehaviour
             if (!cardsPanelController.gameObject.activeSelf)
             {
                 cardsPanelController.gameObject.SetActive(true);
-                cardsPanelController.InitializeCards();
+                cardsPanelController.InstantiateCardsInCardHolders();
             }
 
         }

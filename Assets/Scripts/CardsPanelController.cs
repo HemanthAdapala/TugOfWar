@@ -1,48 +1,52 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardsPanelController : MonoBehaviour
 {
-
     [SerializeField] private SliderFillController sliderFillController;
     [SerializeField] public CardHolderUI[] cardHolders;
-    [SerializeField] public CardData[] testingCardDatas;
-    private List<CardUI> testingCardDataList = new List<CardUI>();
+    //For Testing
+    [SerializeField] public CardData[] cardsData;
+    private List<CardUI> spawnedCards = new List<CardUI>();
 
     [SerializeField] public GameObject cardPrefab;
 
-    private void Start() {
+    private void Awake() {
         sliderFillController.OnSliderValueChanged += OnSliderValueChangedEvent_CardsPanelController;
     }
 
 
-    public void InitializeCards()
+    public void InstantiateCardsInCardHolders()
     {
         foreach (var card in cardHolders)
         {
-            var cardObject = Instantiate(cardPrefab, card.cardHolder);
-            CardUI testingCardDataUI = cardObject.GetComponent<CardUI>();
-            testingCardDataUI.SetData(testingCardDatas[UnityEngine.Random.Range(0, testingCardDatas.Length)]);
-            testingCardDataList.Add(testingCardDataUI);
-            Debug.Log(testingCardDataList.Count);
-            //cardObject.GetComponent<CardHolderUI>().SetCardData(testingCardDataUI.cardData);
+            var cardRef = Instantiate(cardPrefab, card.cardHolder);
+            CardUI cardUI = cardRef.GetComponent<CardUI>();
+            cardUI.SetCardUIData(cardsData[UnityEngine.Random.Range(0, cardsData.Length)]);
+            spawnedCards.Add(cardUI);
+            Debug.Log(spawnedCards.Count);
+            SetCardDataToCardHolder(cardUI.GetCardData());
         }
     }
 
+    public void SetCardDataToCardHolder(CardData cardData){
+        foreach (var card in cardHolders)
+        {
+            card.SetCardData(cardData);
+        }
+    }
     //Check for every slider value changed event and check if the card value is equal to the slider value and if it is then enable the raycast target of the card or disable it
     private void OnSliderValueChangedEvent_CardsPanelController(object sender, SliderFillController.SliderValueChangedEventArgs e)
     {
-        foreach (var card in testingCardDatas)
+        foreach (var card in spawnedCards)
         {
-            if (card.cardValue == e.value)
-            {
-                card.cardPrefab.GetComponent<Image>().raycastTarget = true;
+            Debug.Log(card.GetCardData().cardName + " " + card.GetCardValue() + " " + e.value);
+            if(card.GetCardValue() >= e.value){
+                card.GetCardImageOutline().gameObject.SetActive(true);
             }
-            else
-            {
-                card.cardPrefab.GetComponent<Image>().raycastTarget = false;
+            else{
+                card.GetCardImageOutline().gameObject.SetActive(false);
             }
         }
     }

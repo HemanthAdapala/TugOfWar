@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: The Titan
   m_EditorClassIdentifier: 
   cardName: The Titan
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
+  cardValue: 7
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: 
-  strength: 49
-  speed: 3
-  stamina: 56
-  technique: 28
-  weight: 100
-  pullPower: 77
-  defense: 156
+  strength: 44
+  speed: 33
+  stamina: 11
+  technique: 5
+  weight: 50
+  pullPower: 49
+  defense: 61
   abilityDescription: "Earthquake Pull \u2013 A massive tug that stuns opponents
     for 2 seconds."
   lore: 
-  uniqueAbility: 3
+  uniqueAbility: 1

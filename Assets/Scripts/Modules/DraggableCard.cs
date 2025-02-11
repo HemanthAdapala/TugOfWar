@@ -23,6 +23,7 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // Disable raycast blocking to detect 3D objects underneath
         canvasGroup.blocksRaycasts = false;
     }
+    
 
     public void OnDrag(PointerEventData eventData)
     {

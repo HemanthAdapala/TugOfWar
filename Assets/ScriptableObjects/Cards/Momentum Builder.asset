@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: Momentum Builder
   m_EditorClassIdentifier: 
   cardName: Momentum Builder
-  cardColor: {r: 0, g: 0.10835743, b: 1, a: 0}
+  cardColor: {r: 0, g: 0.10835743, b: 1, a: 1}
+  cardValue: 3
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Puller
-  strength: 55
-  speed: 88
-  stamina: 1
-  technique: 23
-  weight: 60
-  pullPower: 78
-  defense: 61
+  strength: 79
+  speed: 89
+  stamina: 18
+  technique: 30
+  weight: 69
+  pullPower: 109
+  defense: 87
   abilityDescription: "Momentum Surge \u2013 Gains +10% strength for every 10 seconds
     of continuous pulling."
   lore: 
-  uniqueAbility: 0
+  uniqueAbility: 6

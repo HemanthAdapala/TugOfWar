@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: The Boulder
   m_EditorClassIdentifier: 
   cardName: The Boulder
-  cardColor: {r: 0.9882878, g: 1, b: 0, a: 0}
+  cardColor: {r: 0.9882878, g: 1, b: 0, a: 1}
+  cardValue: 4
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Anchor
-  strength: 99
-  speed: 73
-  stamina: 85
-  technique: 2
+  strength: 80
+  speed: 24
+  stamina: 15
+  technique: 81
   weight: 67
-  pullPower: 101
-  defense: 152
+  pullPower: 161
+  defense: 82
   abilityDescription: "Unshakable \u2013 Gains +20% defense when stamina drops below
     30%."
   lore: 
-  uniqueAbility: 3
+  uniqueAbility: 4

@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Iron Wall
   m_EditorClassIdentifier: 
   cardName: Iron Wall
-  cardColor: {r: 0.088113785, g: 1, b: 0, a: 0}
+  cardColor: {r: 0.088113785, g: 1, b: 0, a: 1}
+  cardValue: 7
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Anchor
-  strength: 56
-  speed: 87
-  stamina: 45
-  technique: 53
-  weight: 15
-  pullPower: 109
-  defense: 60
+  strength: 86
+  speed: 95
+  stamina: 41
+  technique: 77
+  weight: 73
+  pullPower: 163
+  defense: 114
   abilityDescription: "Immovable \u2013 Cannot be pulled for 3 seconds after being
     yanked."
   lore: 

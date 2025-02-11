@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: Thunder Anchor
   m_EditorClassIdentifier: 
   cardName: Thunder Anchor
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
+  cardValue: 6
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Anchor
-  strength: 68
-  speed: 26
-  stamina: 48
-  technique: 55
-  weight: 4
-  pullPower: 123
-  defense: 52
+  strength: 5
+  speed: 63
+  stamina: 39
+  technique: 84
+  weight: 22
+  pullPower: 89
+  defense: 61
   abilityDescription: "Lightning Grip \u2013 Pulls faster for 5 seconds after losing
     50% stamina."
   lore: 
-  uniqueAbility: 2
+  uniqueAbility: 4

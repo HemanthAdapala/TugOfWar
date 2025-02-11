@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: Swift Striker
   m_EditorClassIdentifier: 
   cardName: Swift Striker
-  cardColor: {r: 1, g: 0, b: 0, a: 0}
+  cardColor: {r: 1, g: 0, b: 0, a: 1}
+  cardValue: 6
+  cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Puller
-  strength: 49
-  speed: 7
-  stamina: 25
-  technique: 13
-  weight: 7
-  pullPower: 62
-  defense: 32
+  strength: 95
+  speed: 76
+  stamina: 37
+  technique: 97
+  weight: 67
+  pullPower: 192
+  defense: 104
   abilityDescription: "Quick Tug \u2013 Can perform rapid, small tugs to destabilize
     opponents."
   lore: 
-  uniqueAbility: 5
+  uniqueAbility: 6

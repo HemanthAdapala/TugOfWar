@@ -5,11 +5,28 @@ public class CardUI : MonoBehaviour
 {
     private Color cardColor;
     private CardData cardData;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private Image cardImageOutline;
 
-    public void SetData(CardData data){
+    public int GetCardValue(){
+        return cardData.cardValue;
+    }
+
+    public CardData GetCardData(){
+        return cardData;
+    }
+
+    public Image GetCardImageOutline(){
+        return cardImageOutline;
+    }
+
+    public Image GetCardImage(){
+        return cardImage;
+    }
+
+    public void SetCardUIData(CardData data){
         cardData = data;
-        Image image = GetComponent<Image>();
-        image.color = data.cardColor;
+        cardImage.color = data.cardColor;
         cardColor = data.cardColor;
         cardData.cardValue = data.cardValue;
     }
