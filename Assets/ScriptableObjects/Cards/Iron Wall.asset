@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 239da734b52f81949b2852d700dc011e, type: 3}
-  m_Name: The Boulder
+  m_Name: Iron Wall
   m_EditorClassIdentifier: 
-  cardName: The Boulder
+  cardName: Iron Wall
+  cardColor: {r: 0.088113785, g: 1, b: 0, a: 0}
   cardArtwork: {fileID: 0}
   role: Anchor
-  strength: 99
-  speed: 73
-  stamina: 85
-  technique: 2
-  weight: 67
-  pullPower: 101
-  defense: 152
-  abilityDescription: "Unshakable \u2013 Gains +20% defense when stamina drops below
-    30%."
+  strength: 56
+  speed: 87
+  stamina: 45
+  technique: 53
+  weight: 15
+  pullPower: 109
+  defense: 60
+  abilityDescription: "Immovable \u2013 Cannot be pulled for 3 seconds after being
+    yanked."
   lore: 
-  uniqueAbility: 3
+  uniqueAbility: 1

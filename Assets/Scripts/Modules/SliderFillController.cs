@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEditor;
@@ -7,15 +8,21 @@ using UnityEngine.UI;
 public class SliderFillController : MonoBehaviour
 {
     [Header("Slider Settings")]
-    public Image sliderImage; // The UI Image component used as a slider
-    public int sliderMaxParts = 10; // Total divisions in the slider
-    public float fillDuration = 0.5f; // Duration to lerp between parts
-    public float waitTimeBetweenParts = 0.3f; // Delay before filling the next part
-    public int subtractValue = 5; // Value to subtract on button press
+    [SerializeField] private Image sliderImage; // The UI Image component used as a slider
+    [SerializeField] private int sliderMaxParts = 10; // Total divisions in the slider
+    [SerializeField] private float fillDuration = 0.5f; // Duration to lerp between parts
+    [SerializeField] private float waitTimeBetweenParts = 0.3f; // Delay before filling the next part
+    [SerializeField] private int subtractValue = 5; // Value to subtract on button press
     
-    public float sliderRoundSpeed = 0f;
+    [SerializeField] private float sliderRoundSpeed = 0f;
     
-    public Ease sliderEase = Ease.InSine;
+    [SerializeField] private Ease sliderEase = Ease.InSine;
+    
+    //Event for when the slider value changes and Round to the nearest integer
+    public event EventHandler<SliderValueChangedEventArgs> OnSliderValueChanged;
+    public class SliderValueChangedEventArgs : EventArgs{
+        public int value;
+    }
 
     private Coroutine fillCoroutine;
 
@@ -51,10 +58,12 @@ public class SliderFillController : MonoBehaviour
             float nextFillAmount = i / (float)sliderMaxParts;
             
             sliderImage.DOFillAmount(nextFillAmount, fillDuration).SetEase(sliderEase);
+            OnSliderValueChanged?.Invoke(this,new SliderValueChangedEventArgs{value = i});
             yield return new WaitForSeconds(fillDuration + waitTimeBetweenParts);
-
         }
     }
+
+
 
     public void SubtractAndRefill()
     {

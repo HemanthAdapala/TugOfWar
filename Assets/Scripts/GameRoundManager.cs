@@ -66,6 +66,13 @@ public class GameRoundManager : MonoBehaviour
                 sliderFillController.gameObject.SetActive(true);
             }
 
+            //Check if cards panel is disabled then Enable the cards panel
+            if (!cardsPanelController.gameObject.activeSelf)
+            {
+                cardsPanelController.gameObject.SetActive(true);
+                cardsPanelController.InitializeCards();
+            }
+
         }
     }
 

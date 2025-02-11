@@ -1,10 +1,46 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewPreset", menuName = "TugOfWar/Preset")]
+public class Preset : ScriptableObject
+{
+    public string presetName;
+    public string presetDescription;
+    public DeckData[] decks;
+
+    public void OValidate()
+    {
+        if (string.IsNullOrEmpty(presetName) || presetName != this.name)
+        {
+            presetName = this.name;
+        }
+    }
+}
+
+[CreateAssetMenu(fileName = "NewDeck", menuName = "TugOfWar/Deck")]
+public class DeckData : ScriptableObject
+{
+    public string deckName;
+    public string deckDescription;
+    public CardData[] cards;
+
+    public void OValidate()
+    {
+        if (string.IsNullOrEmpty(deckName) || deckName != this.name)
+        {
+            deckName = this.name;
+        }
+    }
+}
+
+
 [CreateAssetMenu(fileName = "NewCard", menuName = "TugOfWar/Card")]
 public class CardData : ScriptableObject
 {
     [Header("Visual Identity")]
-    public string cardName;
+    public string cardName; // Name of the card
+    public Color cardColor; // Color of the card
+    public int cardValue; // Value of the card
+    public GameObject cardPrefab;
     public Sprite cardArtwork; // Visual of the character
     public string role; // E.g., "Anchor", "Puller", "Trickster"
 
@@ -39,4 +75,3 @@ public class CardData : ScriptableObject
         }
     }
 }
-

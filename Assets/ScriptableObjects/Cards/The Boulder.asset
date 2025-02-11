@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 239da734b52f81949b2852d700dc011e, type: 3}
-  m_Name: Momentum Builder
+  m_Name: The Boulder
   m_EditorClassIdentifier: 
-  cardName: Momentum Builder
+  cardName: The Boulder
+  cardColor: {r: 0.9882878, g: 1, b: 0, a: 0}
   cardArtwork: {fileID: 0}
-  role: Puller
-  strength: 55
-  speed: 88
-  stamina: 1
-  technique: 23
-  weight: 60
-  pullPower: 78
-  defense: 61
-  abilityDescription: "Momentum Surge \u2013 Gains +10% strength for every 10 seconds
-    of continuous pulling."
+  role: Anchor
+  strength: 99
+  speed: 73
+  stamina: 85
+  technique: 2
+  weight: 67
+  pullPower: 101
+  defense: 152
+  abilityDescription: "Unshakable \u2013 Gains +20% defense when stamina drops below
+    30%."
   lore: 
-  uniqueAbility: 0
+  uniqueAbility: 3
