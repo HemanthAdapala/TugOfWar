@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
-    private Color cardColor;
     private CardData cardData;
     [SerializeField] private Image cardImage;
     [SerializeField] private Image cardImageOutline;
@@ -27,7 +26,6 @@ public class CardUI : MonoBehaviour
     public void SetCardUIData(CardData data){
         cardData = data;
         cardImage.color = data.cardColor;
-        cardColor = data.cardColor;
         cardData.cardValue = data.cardValue;
     }
     

@@ -23,7 +23,7 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // Disable raycast blocking to detect 3D objects underneath
         canvasGroup.blocksRaycasts = false;
     }
-    
+
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -42,6 +42,15 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (hit.collider.CompareTag("Cube")) // Ensure the cube has the "Cube" tag
             {
                 Debug.Log("Card dropped on cube!");
+                if(hit.collider.GetComponent<SpawnerHub>()){
+                    var cardUI = GetComponentInParent<CardUI>();
+                    var spawnerHub = hit.collider.GetComponent<SpawnerHub>();
+                    //Raise an event to the CardsPanelController to update the slider value
+                    CardsPanelController.Instance.UpdateSliderValue(cardUI.GetCardValue());
+                    spawnerHub.SpawnEntity(cardUI.GetCardData());
+                    //Remove the card from the list of spawned cards
+                    CardsPanelController.Instance.RemoveCardFromList(cardUI);
+                }
                 // Trigger cube logic here (e.g., hit.collider.GetComponent<Cube>().OnCardDropped());
             }
         }

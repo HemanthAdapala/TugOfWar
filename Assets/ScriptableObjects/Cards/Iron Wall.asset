@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Iron Wall
   cardColor: {r: 0.088113785, g: 1, b: 0, a: 1}
-  cardValue: 7
+  cardValue: 5
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 0}
   role: Anchor

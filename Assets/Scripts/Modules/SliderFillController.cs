@@ -17,6 +17,8 @@ public class SliderFillController : MonoBehaviour
     [SerializeField] private float sliderRoundSpeed = 0f;
     
     [SerializeField] private Ease sliderEase = Ease.InSine;
+
+    private int currentSliderValue;
     
     //Event for when the slider value changes and Round to the nearest integer
     public event EventHandler<SliderValueChangedEventArgs> OnSliderValueChanged;
@@ -51,12 +53,13 @@ public class SliderFillController : MonoBehaviour
 
     private IEnumerator FillSliderSmoothly(float startFillAmount)
     {
+        yield return new WaitForSeconds(1f);
         float currentFill = startFillAmount;
         
         for (int i = Mathf.CeilToInt(startFillAmount * sliderMaxParts); i <= sliderMaxParts; i++)
         {
             float nextFillAmount = i / (float)sliderMaxParts;
-            
+            currentSliderValue = i;
             sliderImage.DOFillAmount(nextFillAmount, fillDuration).SetEase(sliderEase);
             OnSliderValueChanged?.Invoke(this,new SliderValueChangedEventArgs{value = i});
             yield return new WaitForSeconds(fillDuration + waitTimeBetweenParts);
@@ -65,11 +68,17 @@ public class SliderFillController : MonoBehaviour
 
 
 
-    public void SubtractAndRefill()
+    public void SubtractAndRefill(int value)
     {
-        float newFillAmount = Mathf.Clamp(sliderImage.fillAmount - (subtractValue / (float)sliderMaxParts), 0f, 1f);
+        currentSliderValue -= value;
+        float newFillAmount = Mathf.Clamp(sliderImage.fillAmount - (value / (float)sliderMaxParts), 0f, 1f);
         sliderImage.fillAmount = newFillAmount;
         StartFillAnimation(newFillAmount);
+    }
+
+    public int GetSliderValue()
+    {
+        return currentSliderValue;
     }
 }
 
@@ -84,7 +93,7 @@ public class SliderFillControllerEditor : Editor
         SliderFillController script = (SliderFillController)target;
         if (GUILayout.Button("Subtract and Refill"))
         {
-            script.SubtractAndRefill();
+            //script.SubtractAndRefill();
         }
     }
 }
