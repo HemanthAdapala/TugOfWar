@@ -25,7 +25,8 @@ public class CardUI : MonoBehaviour
 
     public void SetCardUIData(CardData data){
         cardData = data;
-        cardImage.color = data.cardColor;
+        cardImage.sprite = data.cardArtwork;
+        cardImageOutline.sprite = data.cardArtwork;
         cardData.cardValue = data.cardValue;
     }
     

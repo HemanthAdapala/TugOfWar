@@ -16,7 +16,7 @@ MonoBehaviour:
   cardColor: {r: 0, g: 0.10835743, b: 1, a: 1}
   cardValue: 4
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
-  cardArtwork: {fileID: 0}
+  cardArtwork: {fileID: 7919194353434859991, guid: b35fcaa46fa9f3e49b71c103f69df698, type: 3}
   role: Puller
   strength: 79
   speed: 89

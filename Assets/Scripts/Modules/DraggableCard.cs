@@ -42,12 +42,12 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (hit.collider.CompareTag("Cube")) // Ensure the cube has the "Cube" tag
             {
                 Debug.Log("Card dropped on cube!");
-                if(hit.collider.GetComponent<SpawnerHub>()){
+                var cardObjectSpawner = hit.collider.GetComponent<CardObjectSpawner>();
+                if(cardObjectSpawner){
                     var cardUI = GetComponentInParent<CardUI>();
-                    var spawnerHub = hit.collider.GetComponent<SpawnerHub>();
                     //Raise an event to the CardsPanelController to update the slider value
                     CardsPanelController.Instance.UpdateSliderValue(cardUI.GetCardValue());
-                    spawnerHub.SpawnEntity(cardUI.GetCardData());
+                    cardObjectSpawner.SpawnEntity(cardUI.GetCardData());
                     //Remove the card from the list of spawned cards
                     CardsPanelController.Instance.RemoveCardFromList(cardUI);
                 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   cardColor: {r: 0.088113785, g: 1, b: 0, a: 1}
   cardValue: 5
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
-  cardArtwork: {fileID: 0}
+  cardArtwork: {fileID: -52179173452712981, guid: be120bf969ae2c84fa997ecca6dd28e6, type: 3}
   role: Anchor
   strength: 86
   speed: 95
