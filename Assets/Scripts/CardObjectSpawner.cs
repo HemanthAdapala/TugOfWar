@@ -95,4 +95,9 @@ public class CardObjectSpawner : MonoBehaviour
                         isMoving = false;
                     });
     }
+
+    public void SpawnEntity(CardData cardData)
+    {
+        Debug.Log("Spawned Entity: " + cardData.cardName);
+    }
 }

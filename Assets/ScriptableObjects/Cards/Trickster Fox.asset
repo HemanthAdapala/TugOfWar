@@ -16,7 +16,7 @@ MonoBehaviour:
   cardColor: {r: 0.9846988, g: 1, b: 0, a: 1}
   cardValue: 6
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
-  cardArtwork: {fileID: 0}
+  cardArtwork: {fileID: -7090641179508505894, guid: a92c5df7eef6ddc4ba91ad5dd2892af9, type: 3}
   role: Trickster
   strength: 46
   speed: 90
