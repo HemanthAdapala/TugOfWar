@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Wind Dancer
   m_EditorClassIdentifier: 
   cardName: Wind Dancer
-  cardColor: {r: 1, g: 0, b: 0, a: 1}
+  cardColor: {r: 1, g: 0.21960786, b: 0.21960786, a: 1}
   cardValue: 8
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: -1936355827857895663, guid: fa360ec6245a3dd43bfbae1ac1093a6e, type: 3}
   role: 
+  avatar: {fileID: 11400000, guid: 84b72103a3041044b99f15527505e288, type: 2}
   strength: 19
   speed: 64
   stamina: 26

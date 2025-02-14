@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1b8f59c97298d43b59df71a741e6a8, type: 3}
+  m_Name: Iron Wall
+  m_EditorClassIdentifier: 
+  avatarName: Iron Wall
+  avatarPrefab: {fileID: 2394210006920502325, guid: 484c9a9b4b3dbc642818f2702a9005ad, type: 3}

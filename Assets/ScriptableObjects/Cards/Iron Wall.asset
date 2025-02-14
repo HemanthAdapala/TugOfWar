@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Iron Wall
   m_EditorClassIdentifier: 
   cardName: Iron Wall
-  cardColor: {r: 0.088113785, g: 1, b: 0, a: 1}
+  cardColor: {r: 0.46274513, g: 0.8745099, b: 0.30980393, a: 1}
   cardValue: 5
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: -52179173452712981, guid: be120bf969ae2c84fa997ecca6dd28e6, type: 3}
   role: Anchor
+  avatar: {fileID: 11400000, guid: 0965f4d2b9bd5a84884c59f8431f4255, type: 2}
   strength: 86
   speed: 95
   stamina: 41

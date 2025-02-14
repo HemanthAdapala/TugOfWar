@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Momentum Builder
   m_EditorClassIdentifier: 
   cardName: Momentum Builder
-  cardColor: {r: 0, g: 0.10835743, b: 1, a: 1}
-  cardValue: 4
+  cardColor: {r: 0.28627452, g: 0.68235296, b: 0.9960785, a: 1}
+  cardValue: 2
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: 7919194353434859991, guid: b35fcaa46fa9f3e49b71c103f69df698, type: 3}
   role: Puller
+  avatar: {fileID: 11400000, guid: dba2f561bb67b344f9ec2271e5b83803, type: 2}
   strength: 79
   speed: 89
   stamina: 18

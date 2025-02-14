@@ -52,6 +52,7 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     CardsPanelController.Instance.RemoveCardFromList(cardUI);
                 }
                 // Trigger cube logic here (e.g., hit.collider.GetComponent<Cube>().OnCardDropped());
+                
             }
         }
         else

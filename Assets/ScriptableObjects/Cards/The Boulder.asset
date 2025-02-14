@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: The Boulder
   m_EditorClassIdentifier: 
   cardName: The Boulder
-  cardColor: {r: 0.9882878, g: 1, b: 0, a: 1}
+  cardColor: {r: 1, g: 0.65882355, b: 0.25490198, a: 1}
   cardValue: 6
   cardPrefab: {fileID: 597787110286579132, guid: b3c978bf41dd7b040af025c3bffe92ab, type: 3}
   cardArtwork: {fileID: -7090641179508505894, guid: a92c5df7eef6ddc4ba91ad5dd2892af9, type: 3}
   role: Anchor
+  avatar: {fileID: 11400000, guid: 217180ccceaaf5c4cada8fa5fbba202c, type: 2}
   strength: 80
   speed: 24
   stamina: 15

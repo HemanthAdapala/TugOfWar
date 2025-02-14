@@ -1,51 +1,115 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using System;
 
 public enum SpawnerSide
 {
     Left,
-    Right
+    Right,
+    None
 }
 
 public class CardObjectSpawner : MonoBehaviour
 {
     [Header("Spawner Settings")]
-    public SpawnerSide spawnerSide;  // Set this to Left or Right in the Inspector
+    public SpawnerSide currentSpawnSide;  // Set this to Left or Right in the Inspector
 
     [Header("References")]
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Transform targetPoint;  // The target for the first spawned object
-    [SerializeField] private float spacing = 1.5f;       // Spacing between cards
+    [SerializeField] private Transform initialTargetRightPoint;  // The target for the first spawned object
+    [SerializeField] private Transform initialTargetLeftPoint;
+    [SerializeField] private float spacing;       // Spacing between cards
 
-    [Header("Card Prefab")]
-    [SerializeField] private GameObject cardPrefab;
 
     // Each spawner manages its own list.
     private List<GameObject> movingObjects = new List<GameObject>();
     private bool isMoving = false;  // Ensures sequential movement
+    private Transform targetPoint;
+
+    private void Start()
+    {
+        currentSpawnSide = SpawnerSide.None;
+    }
+
+    public Avatar SpawnAvatar(CardData cardData)
+    {
+        if (cardData == null)
+        {
+            Debug.LogError("CardData or prefab missing!");
+            return null;
+        }
+        
+        var avatarDataRef = cardData.avatar;
+        // Instantiate the object at the spawn point
+        GameObject avatarRef = Instantiate(avatarDataRef.avatarPrefab, spawnPoint.position, Quaternion.identity, transform);
+        movingObjects.Add(avatarRef);
+        var avatarData = avatarRef.GetComponent<Avatar>();
+        avatarData.SetAvatarData(cardData);
+
+        return avatarData;
+    }
 
     /// <summary>
     /// Spawns a card and moves it into position.
     /// </summary>
-    public void SpawnCardObject(CardData cardData)
+    public void SpawnEntity(CardData cardData)
     {
-        if (cardData == null || cardPrefab == null)
+        Debug.Log("Spawned Entity: " + cardData.cardName);
+        currentSpawnSide = ChooseSpawnSide(); // Choose the side to spawn the avatar
+        var avatar = SpawnAvatar(cardData);
+        CalculateTargetPoint();
+        GameLobby.Instance.AddPlayerSelectedCard(avatar, currentSpawnSide);
+
+        var isLeader = CheckIfAvatarIsLeader(currentSpawnSide);
+        if(isLeader)
         {
-            Debug.LogError("CardData or prefab missing!");
-            return;
+            MoveAvatarToInitialPoint(avatar,currentSpawnSide,0);
         }
-
-        // Instantiate the object at the spawn point
-        GameObject player = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, transform);
-        movingObjects.Add(player);
-        var playerData = player.GetComponent<CardPlayer>();
-        playerData.SetPlayerData(cardData);
-
-        // Only start moving if nothing is currently moving.
-        if (!isMoving)
+        else
         {
-            MoveObject(player);
+            MoveAvatarToTargetPoint(avatar,spacing);
+        }
+    }
+
+    private bool CheckIfAvatarIsLeader(SpawnerSide currentSpawnSide)
+    {
+        if(GameLobby.Instance.GetPlayerSelectedCardsBySide(currentSpawnSide).Count == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void MoveAvatarToInitialPoint(Avatar avatar, SpawnerSide currentSpawnSide,float spacing)
+    {
+        var initialTargetPoint = GetTargetPositionBySide(currentSpawnSide);
+        MoveInSequence(avatar.gameObject, initialTargetPoint,spacing);
+    }
+
+    private void MoveAvatarToTargetPoint(Avatar avatar, float spacing)
+    {
+        var lastObjectPosition = GameLobby.Instance.GetLastObjectPosition(currentSpawnSide);
+        if (lastObjectPosition != null)
+        {
+            MoveInSequence(avatar.gameObject, lastObjectPosition, spacing);
+        }
+    }
+
+
+
+    private void CalculateTargetPoint()
+    {
+        if(currentSpawnSide == SpawnerSide.Right)
+        {
+            targetPoint = initialTargetRightPoint;
+        }
+        else if(currentSpawnSide == SpawnerSide.Left)
+        {
+            targetPoint = initialTargetLeftPoint;
         }
     }
 
@@ -54,50 +118,55 @@ public class CardObjectSpawner : MonoBehaviour
     /// For the first object it moves to targetPoint.
     /// For subsequent objects, it moves behind the previous object (with spacing).
     /// </summary>
-    private void MoveObject(GameObject objToMove)
+    public void MoveInSequence(GameObject objToMove, Transform targetPos, float spacing)
     {
-        isMoving = true;
+        var sequence = DOTween.Sequence();
 
-        // Calculate target position
-        Vector3 targetPos;
-        if (movingObjects.Count == 1)
+        // Step 1: Move in X direction first
+        sequence.Append(objToMove.transform.DOMoveX(targetPos.position.x, 1f).SetEase(Ease.Linear));
+
+        // Step 2: After X movement completes, move in Z direction
+        sequence.Append(objToMove.transform.DOMoveZ(targetPos.position.z - spacing, 1f).SetEase(Ease.Linear));
+
+        sequence.Play();
+    }
+
+
+    
+    
+
+    public SpawnerSide ChooseSpawnSide() => currentSpawnSide switch {
+        SpawnerSide.None => SpawnerSide.Right,
+        SpawnerSide.Right => SpawnerSide.Left,
+        SpawnerSide.Left => SpawnerSide.Right,
+        _ => currentSpawnSide
+    };
+
+    private Transform GetTargetPositionBySide(SpawnerSide side)
+    {
+        if(side == SpawnerSide.Right)
         {
-            // First object goes to the targetPoint
-            targetPos = targetPoint.position;
+            return initialTargetRightPoint;
+        }
+        else if(side == SpawnerSide.Left)
+        {
+            return initialTargetLeftPoint;
         }
         else
         {
-            // Subsequent objects target the previous object’s position with an offset.
-            // Use the second-to-last object (index = Count - 2) since the last is the one we're moving.
-            GameObject previousObj = movingObjects[movingObjects.Count - 2];
-            Vector3 previousPos = previousObj.transform.position;
-
-            // Depending on the side, the offset is applied in a different direction.
-            // For example, Left spawner might decrease Z while Right spawner increases Z (or vice-versa, depending on your scene setup).
-            if (spawnerSide == SpawnerSide.Left)
-            {
-                targetPos = previousPos - new Vector3(0, 0, spacing);
-            }
-            else  // SpawnerSide.Right
-            {
-                targetPos = previousPos + new Vector3(0, 0, spacing);
-            }
+            return null;
         }
-
-        // Optionally, if you want to separate movement into steps (e.g., move in X then in Z),
-        // you can adjust the sequence below. Here we move in two steps (X first, then Z).
-        Sequence moveSequence = DOTween.Sequence();
-        moveSequence.Append(objToMove.transform.DOMoveX(targetPos.x, 1f).SetEase(Ease.Linear))
-                    .Append(objToMove.transform.DOMoveZ(targetPos.z, 1f).SetEase(Ease.Linear))
-                    .OnComplete(() =>
-                    {
-                        // Once movement is complete, no further movement is needed until a new card is spawned.
-                        isMoving = false;
-                    });
     }
 
-    public void SpawnEntity(CardData cardData)
+    public Transform MoveToInitialRightPoint()
     {
-        Debug.Log("Spawned Entity: " + cardData.cardName);
+        return initialTargetRightPoint;
     }
+
+    public Transform MoveToInitialLeftPoint()
+    {
+        return initialTargetLeftPoint;
+    }
+    
+    
 }

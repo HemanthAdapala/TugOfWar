@@ -4,40 +4,90 @@ using System;
 
 public class GameLobby : MonoBehaviour
 {
+    //Singleton
+    public static GameLobby Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField] private Timer timer;
     [SerializeField] private CardObjectSpawner playerSpawner;
     [SerializeField] private CardObjectSpawner opponentSpawner;
 
     [SerializeField] private GameRoundManager gameRoundManager;
 
-    private List<CardData> playerSelectedCards = new List<CardData>();
-    private List<CardData> opponentSelectedCards = new List<CardData>();
+    private List<Avatar> playerSelectedRightCards;
+    private List<Avatar> playerSelectedLeftCards;
+    private List<Avatar> opponentSelectedRightCards;
+    private List<Avatar> opponentSelectedLeftCards;
 
     private void Start() {
-        // Initialize cards for the round
-        playerSelectedCards.Clear();
-        opponentSelectedCards.Clear();
-        //timer.StartTimer();
-        gameRoundManager.OnSentCardDataToLobby += OnSentCardDataToLobby_GameRoundManager;
+
+        playerSelectedRightCards = new List<Avatar>();
+        playerSelectedLeftCards = new List<Avatar>();
+        opponentSelectedRightCards = new List<Avatar>();
+        opponentSelectedLeftCards = new List<Avatar>();
     }
 
-    private void OnSentCardDataToLobby_GameRoundManager(object sender, GameRoundManager.LobbyCardData e)
+    public List<Avatar> GetPlayerSelectedCardsBySide(SpawnerSide side)
     {
-        OnPlayerSelectedCard(e.playerCard);
-        OnOpponentSelectedCard(e.opponentCard);
+        if(side == SpawnerSide.Right)
+        {
+            return playerSelectedRightCards;
+        }
+        else if(side == SpawnerSide.Left)
+        {
+            return playerSelectedLeftCards;
+        }
+        else
+        {
+            return new List<Avatar>();
+        }
     }
 
-    // Called when the player selects a card (e.g., via UI)
-    public void OnPlayerSelectedCard(CardData cardData)
+    public List<Avatar> GetOpponentSelectedCardsBySide(SpawnerSide side)
     {
-        playerSelectedCards.Add(cardData);
-        playerSpawner.SpawnCardObject(cardData);
+        if(side == SpawnerSide.Right)
+        {
+            return opponentSelectedRightCards;
+        }
+        else if(side == SpawnerSide.Left)
+        {
+            return opponentSelectedLeftCards;
+        }
+        else
+        {
+            return new List<Avatar>();
+        }
     }
 
-    // Called when the opponent (AI/network) selects a card
-    public void OnOpponentSelectedCard(CardData cardData)
+    public void AddPlayerSelectedCard(Avatar avatar, SpawnerSide currentSpawnSide)
     {
-        opponentSelectedCards.Add(cardData);
-        opponentSpawner.SpawnCardObject(cardData);
+        if(currentSpawnSide == SpawnerSide.Right)
+        {
+            playerSelectedRightCards.Add(avatar);
+        }
+        else if(currentSpawnSide == SpawnerSide.Left)
+        {
+            playerSelectedLeftCards.Add(avatar);
+        }
+    }
+
+    public Transform GetLastObjectPosition(SpawnerSide side)
+    {
+        if(side == SpawnerSide.Right)
+        {
+            return playerSelectedRightCards[playerSelectedRightCards.Count - 2].transform;
+        }
+        else if(side == SpawnerSide.Left)
+        {
+            return playerSelectedLeftCards[playerSelectedLeftCards.Count - 2].transform;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

@@ -14,7 +14,6 @@ public class GameRoundManager : MonoBehaviour
 
     public event EventHandler OnRoundCountDownStarted;
     public event EventHandler OnRoundCountDownEnded;
-    public event EventHandler<LobbyCardData> OnSentCardDataToLobby;
 
     public class LobbyCardData{
         public CardData playerCard;
@@ -180,24 +179,8 @@ public class GameRoundManager : MonoBehaviour
         UpdateCountdownDisplay();
 
         Debug.Log("CountDown End");
-        CheckForCurrentCardData();
         OnRoundCountDownEnded?.Invoke(this, EventArgs.Empty);
         Hide();
-    }
-
-    private void CheckForCurrentCardData()
-    {
-        if (playerCard == null || opponentCard == null)
-        {
-            Debug.LogWarning("PlayerCard or OpponentCard is null! Waiting for selection.");
-            return;
-        }
-
-        OnSentCardDataToLobby?.Invoke(this, new LobbyCardData { playerCard = playerCard, opponentCard = opponentCard });
-        Debug.Log($"PlayerCard: {playerCard.cardName}, OpponentCard: {opponentCard.cardName}");
-
-        playerCard = null;
-        opponentCard = null;
     }
 
     private void UpdateRoundText(int round, int maxRound)

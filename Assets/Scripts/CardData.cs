@@ -44,6 +44,9 @@ public class CardData : ScriptableObject
     public Sprite cardArtwork; // Visual of the character
     public string role; // E.g., "Anchor", "Puller", "Trickster"
 
+    [Header("Avatar")]
+    public AvatarData avatar;
+
     [Header("Core Stats")]
     [Range(1, 100)] public int strength;      // Raw pulling power
     [Range(1, 100)] public int speed;         // How fast they pull/react
