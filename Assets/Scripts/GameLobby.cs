@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public class GameLobby : MonoBehaviour
 {
@@ -15,29 +16,39 @@ public class GameLobby : MonoBehaviour
     [SerializeField] private Timer timer;
     [SerializeField] private CardObjectSpawner playerSpawner;
     [SerializeField] private CardObjectSpawner opponentSpawner;
-
     [SerializeField] private GameRoundManager gameRoundManager;
+    [SerializeField] private CustomWeightingStats customWeightingStats;
+
+    [SerializeField] private TextMeshProUGUI playerRightSideCanvas;
+    [SerializeField] private TextMeshProUGUI playerLeftSideCanvas;
+
+
 
     private List<Avatar> playerSelectedRightCards;
     private List<Avatar> playerSelectedLeftCards;
     private List<Avatar> opponentSelectedRightCards;
     private List<Avatar> opponentSelectedLeftCards;
 
-    private void Start() {
+    private GameLogicManager gameLogicManager;
+
+    private void Start()
+    {
 
         playerSelectedRightCards = new List<Avatar>();
         playerSelectedLeftCards = new List<Avatar>();
         opponentSelectedRightCards = new List<Avatar>();
         opponentSelectedLeftCards = new List<Avatar>();
+
+        gameLogicManager = new GameLogicManager();
     }
 
     public List<Avatar> GetPlayerSelectedCardsBySide(SpawnerSide side)
     {
-        if(side == SpawnerSide.Right)
+        if (side == SpawnerSide.Right)
         {
             return playerSelectedRightCards;
         }
-        else if(side == SpawnerSide.Left)
+        else if (side == SpawnerSide.Left)
         {
             return playerSelectedLeftCards;
         }
@@ -49,11 +60,11 @@ public class GameLobby : MonoBehaviour
 
     public List<Avatar> GetOpponentSelectedCardsBySide(SpawnerSide side)
     {
-        if(side == SpawnerSide.Right)
+        if (side == SpawnerSide.Right)
         {
             return opponentSelectedRightCards;
         }
-        else if(side == SpawnerSide.Left)
+        else if (side == SpawnerSide.Left)
         {
             return opponentSelectedLeftCards;
         }
@@ -65,11 +76,11 @@ public class GameLobby : MonoBehaviour
 
     public void AddPlayerSelectedCard(Avatar avatar, SpawnerSide currentSpawnSide)
     {
-        if(currentSpawnSide == SpawnerSide.Right)
+        if (currentSpawnSide == SpawnerSide.Right)
         {
             playerSelectedRightCards.Add(avatar);
         }
-        else if(currentSpawnSide == SpawnerSide.Left)
+        else if (currentSpawnSide == SpawnerSide.Left)
         {
             playerSelectedLeftCards.Add(avatar);
         }
@@ -77,11 +88,11 @@ public class GameLobby : MonoBehaviour
 
     public Transform GetLastObjectPosition(SpawnerSide side)
     {
-        if(side == SpawnerSide.Right)
+        if (side == SpawnerSide.Right)
         {
             return playerSelectedRightCards[playerSelectedRightCards.Count - 2].transform;
         }
-        else if(side == SpawnerSide.Left)
+        else if (side == SpawnerSide.Left)
         {
             return playerSelectedLeftCards[playerSelectedLeftCards.Count - 2].transform;
         }
@@ -89,5 +100,25 @@ public class GameLobby : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public void CalculateAverageStatsByPlayer(SpawnerSide spawnerSide)
+    {
+        if (spawnerSide == SpawnerSide.Right)
+        {
+            var average = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards);
+            playerRightSideCanvas.text = "Average: " + average.ToString("F2");
+        }
+        else if (spawnerSide == SpawnerSide.Left)
+        {
+            var average = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedLeftCards);
+            playerLeftSideCanvas.text = "Average: " + average.ToString("F2");
+        }
+    }
+
+    public void CalculateAverageStatsByTeam()
+    {
+        float teamAverage = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards);
+        Debug.Log("Team Average: " + teamAverage);
     }
 }

@@ -28,7 +28,6 @@ public class CardDataUI : MonoBehaviour
 
 
     public event Action<CardData> OnCardClicked;
-
     #endregion
 
     public void SetCardData(CardData cardData)

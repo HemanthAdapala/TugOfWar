@@ -56,9 +56,9 @@ public class CardData : ScriptableObject
 
     [Header("Derived Attributes (Optional)")]
     [Tooltip("Calculated from strength + technique")]
-    public float pullPower; 
+    public float pullPower;
     [Tooltip("Calculated from weight + stamina")]
-    public float defense; 
+    public float defense;
 
     [Header("Player-Friendly Descriptions")]
     [TextArea(3, 5)] public string abilityDescription; // E.g., "Quick Burst: Sudden tugs!"
