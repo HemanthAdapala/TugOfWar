@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cube
+  - Paddle
+  - Ball
+  - Border
   layers:
   - Default
   - TransparentFX
