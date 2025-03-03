@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using TMPro;
+using System.Collections;
 
 public class GameLobby : MonoBehaviour
 {
@@ -22,6 +23,15 @@ public class GameLobby : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerRightSideCanvas;
     [SerializeField] private TextMeshProUGUI playerLeftSideCanvas;
 
+    [SerializeField] private TextMeshProUGUI opponentRightSideCanvas;
+    [SerializeField] private TextMeshProUGUI opponentLeftSideCanvas;
+
+
+    //Testing Cases
+    [SerializeField] private float opponentRightSideAverage;
+    [SerializeField] private float opponentLeftSideAverage;
+    [SerializeField] public bool isOpponentAverageCalculated;
+
 
 
     private List<Avatar> playerSelectedRightCards;
@@ -40,14 +50,52 @@ public class GameLobby : MonoBehaviour
 
     private void Start()
     {
-
         playerSelectedRightCards = new List<Avatar>();
         playerSelectedLeftCards = new List<Avatar>();
         opponentSelectedRightCards = new List<Avatar>();
         opponentSelectedLeftCards = new List<Avatar>();
 
         gameLogicManager = new GameLogicManager();
+
     }
+
+    #region TEST CASES
+
+    public void StartRandomOpponentAverageCalculationTest()
+    {
+        StartCoroutine(StartRandomOpponentAverageCalculation());
+    }
+
+    public IEnumerator StartRandomOpponentAverageCalculation()
+    {
+        int randomDuration = 0;
+        while (isOpponentAverageCalculated)
+        {
+            randomDuration = UnityEngine.Random.Range(1, 10);
+            DebugHelper.LogColor("Random Duration: " + randomDuration, Color.yellow);
+            var randomAverage = RandomOpponentAverageCalculation();
+            DebugHelper.LogColor("Random Average: " + randomAverage, Color.yellow);
+            opponentLeftSideAverage = randomAverage;
+            opponentRightSideAverage = randomAverage;
+            CalculateAverageStatsByOpponent();
+
+            yield return new WaitForSeconds(randomDuration);
+        }
+    }
+
+    private void CalculateAverageStatsByOpponent()
+    {
+        opponentRightSideCanvas.text = $"Average: {opponentRightSideAverage:F2}";
+        opponentLeftSideCanvas.text = $"Average: {opponentLeftSideAverage:F2}";
+    }
+
+    private float RandomOpponentAverageCalculation()
+    {
+        return UnityEngine.Random.Range(1f, 100f);
+    }
+
+    #endregion
+
 
     public List<Avatar> GetPlayerSelectedCardsBySide(SpawnerSide side)
     {

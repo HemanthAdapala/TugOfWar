@@ -53,10 +53,25 @@ public class Timer : MonoBehaviour
 
     public async void StartTimer()
     {
+        OnTimerStarted += OnTimerStartedEvent_Timer;
+        OnTimerFinished += OnTimerFinishedEvent_Timer;
         if (!isRunning)
         {
             await TimerLoop();
         }
+    }
+
+    private void OnTimerFinishedEvent_Timer()
+    {
+        var isOpponentAverageCalculated = GameLobby.Instance.isOpponentAverageCalculated = false;
+        DebugHelper.LogColor("Timer Finished: " + isOpponentAverageCalculated, Color.yellow);
+    }
+
+    private void OnTimerStartedEvent_Timer()
+    {
+        var isOpponentAverageCalculated = GameLobby.Instance.isOpponentAverageCalculated = true;
+        GameLobby.Instance.StartRandomOpponentAverageCalculationTest();
+        DebugHelper.LogColor("Timer Started: " + isOpponentAverageCalculated, Color.yellow);
     }
 
     private void UpdateTimerUI(float time)
@@ -68,4 +83,12 @@ public class Timer : MonoBehaviour
             timerText.text = $"{minutes:D2}:{seconds:D2}"; // Format as MM:SS
         }
     }
+
+    private void OnDestroy()
+    {
+        OnTimerStarted -= OnTimerStartedEvent_Timer;
+        OnTimerFinished -= OnTimerFinishedEvent_Timer;
+    }
+
+
 }
