@@ -21,15 +21,16 @@ public class CardObjectSpawner : MonoBehaviour
     [SerializeField] private Transform initialTargetLeftPoint;
     [SerializeField] private float spacing;       // Spacing between cards
 
-
-    // Each spawner manages its own list.
-    private List<GameObject> movingObjects = new List<GameObject>();
+    private List<Avatar> playerSelectedRightCards;
+    private List<Avatar> playerSelectedLeftCards;
     private bool isMoving = false;  // Ensures sequential movement
     private Transform targetPoint;
 
     private void Start()
     {
         currentSpawnSide = SpawnerSide.None;
+        playerSelectedRightCards = new List<Avatar>();
+        playerSelectedLeftCards = new List<Avatar>();
     }
 
     public void SpawnEntity(CardData cardData)
@@ -44,10 +45,12 @@ public class CardObjectSpawner : MonoBehaviour
         if (isLeader)
         {
             MoveAvatarToInitialPoint(avatar, currentSpawnSide, 0);
+            //Start pulling if player has move average than opponent team or pulled by opponent team
         }
         else
         {
             MoveAvatarToTargetPoint(avatar, spacing);
+            //Start pulling if player has move average than opponent team or pulled by opponent team
         }
     }
 
@@ -62,7 +65,6 @@ public class CardObjectSpawner : MonoBehaviour
         var avatarDataRef = cardData.avatar;
         // Instantiate the object at the spawn point
         GameObject avatarInstance = Instantiate(avatarDataRef.avatarPrefab, spawnPoint.position, Quaternion.identity, transform);
-        movingObjects.Add(avatarInstance);
         var avatarData = avatarInstance.GetComponent<Avatar>();
         avatarData.SetAvatarData(cardData);
         avatarData.CurrentSpawnSide = currentSpawnSide;
@@ -138,9 +140,26 @@ public class CardObjectSpawner : MonoBehaviour
             avatarRef.MovedToDestination(currentSpawnSide);
         });
 
-        sequence.Play();
+        sequence.Play().onComplete += () =>
+        {
+            AddAvatarToSpawningSideList(avatar);
+        };
     }
 
+    private void AddAvatarToSpawningSideList(GameObject avatar)
+    {
+        SpawnerSide spawnerSide = avatar.GetComponent<Avatar>().CurrentSpawnSide;
+        if (spawnerSide == SpawnerSide.Right)
+        {
+            playerSelectedRightCards.Add(avatar.GetComponent<Avatar>());
+            Debug.Log("Player Selected Right Cards: " + playerSelectedRightCards.Count);
+        }
+        else if (spawnerSide == SpawnerSide.Left)
+        {
+            playerSelectedLeftCards.Add(avatar.GetComponent<Avatar>());
+            Debug.Log("Player Selected Left Cards: " + playerSelectedLeftCards.Count);
+        }
+    }
 
     public SpawnerSide ChooseSpawnSide() => currentSpawnSide switch
     {

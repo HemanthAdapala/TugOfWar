@@ -3,19 +3,21 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class GameRoundManager : MonoBehaviour 
+public class GameRoundManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI roundUpdaterText;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private CardsPanelController cardsPanelController;
     [SerializeField] private Transform roundUpdaterPanel;
+    [SerializeField] private Transform gameoverPanel;
     [SerializeField] private Timer timer;
     [SerializeField] private SliderFillController sliderFillController;
 
     public event EventHandler OnRoundCountDownStarted;
     public event EventHandler OnRoundCountDownEnded;
 
-    public class LobbyCardData{
+    public class LobbyCardData
+    {
         public CardData playerCard;
         public CardData opponentCard;
     }
@@ -24,12 +26,14 @@ public class GameRoundManager : MonoBehaviour
     private float remainingTime;
     private int currentRound = 1;
     private int maxRounds = 3;
-    private bool isTimerInitialized = false; 
+    private bool isTimerInitialized = false;
 
-    private CardData playerCard;
-    private CardData opponentCard;
 
-    private void Awake() {
+    private void Awake()
+    {
+        //Disable the gameover panel
+        gameoverPanel.gameObject.SetActive(false);
+
         //Disable the timer
         timer.gameObject.SetActive(false);
         //Disable the cards panel
@@ -40,10 +44,20 @@ public class GameRoundManager : MonoBehaviour
         {
             roundUpdaterPanel.gameObject.SetActive(true);
         }
+
+        timer.OnTimerFinished += () =>
+        {
+            OnTimerFinishedEvent_Timer();
+        };
     }
 
-
-
+    private void OnTimerFinishedEvent_Timer()
+    {
+        Debug.Log("Timer Finished");
+        EndCountDown();
+        roundUpdaterPanel.gameObject.SetActive(false);
+        gameoverPanel.gameObject.SetActive(true);
+    }
 
     private async void Start()
     {
@@ -78,7 +92,7 @@ public class GameRoundManager : MonoBehaviour
 
     private void OnRoundCountDownStartedEvent_GameRoundManager(object sender, EventArgs e)
     {
-        
+        Debug.Log("Round CountDown Started");
     }
 
     private async Task StartNewRound()
@@ -107,7 +121,7 @@ public class GameRoundManager : MonoBehaviour
             timer.OnTimerStarted += OnTimerStartedEvent_Timer;
             timer.OnIntervalReached += OnIntervalReachedEvent_Timer;
 
-            isTimerInitialized = true; 
+            isTimerInitialized = true;
         }
     }
 
@@ -158,18 +172,18 @@ public class GameRoundManager : MonoBehaviour
     }
 
     private void UpdateTimer()
-{
-    remainingTime -= Time.deltaTime;
-
-    // Ensure the timer stops exactly at the correct values (2:00, 1:30, 1:00, etc.)
-    if (Mathf.CeilToInt(remainingTime) <= 0)
     {
-        EndCountDown();
-        return;
-    }
+        remainingTime -= Time.deltaTime;
 
-    UpdateCountdownDisplay();
-}
+        // Ensure the timer stops exactly at the correct values (2:00, 1:30, 1:00, etc.)
+        if (Mathf.CeilToInt(remainingTime) <= 0)
+        {
+            EndCountDown();
+            return;
+        }
+
+        UpdateCountdownDisplay();
+    }
 
 
     private void EndCountDown()
@@ -189,10 +203,10 @@ public class GameRoundManager : MonoBehaviour
     }
 
     private void UpdateCountdownDisplay()
-{
-    int displayTime = Mathf.CeilToInt(remainingTime);
-    countDownText.text = displayTime.ToString();
-}
+    {
+        int displayTime = Mathf.CeilToInt(remainingTime);
+        countDownText.text = displayTime.ToString();
+    }
 
 
     private void Show()
@@ -207,11 +221,6 @@ public class GameRoundManager : MonoBehaviour
             roundUpdaterPanel.gameObject.SetActive(false);
     }
 
-    public void SendCardDataToGameRoundManager(CardData pc, CardData oc)
-    {
-        playerCard = pc;
-        opponentCard = oc;
-    }
 }
 
 
@@ -231,7 +240,7 @@ public class RoundData
         get => _maxRound;
         set => _maxRound = value;
     }
-    
+
     public RoundData(int round, float countDown)
     {
         this._currentround = round;

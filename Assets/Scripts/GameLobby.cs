@@ -29,6 +29,13 @@ public class GameLobby : MonoBehaviour
     private List<Avatar> opponentSelectedRightCards;
     private List<Avatar> opponentSelectedLeftCards;
 
+    private event EventHandler<PlayerStatsChangedEventArgs> OnPlayerStatsChanged;
+    private class PlayerStatsChangedEventArgs : EventArgs
+    {
+        public SpawnerSide spawnerSide;
+        public float playerStats;
+    }
+
     private GameLogicManager gameLogicManager;
 
     private void Start()
@@ -104,16 +111,11 @@ public class GameLobby : MonoBehaviour
 
     public void CalculateAverageStatsByPlayer(SpawnerSide spawnerSide)
     {
-        if (spawnerSide == SpawnerSide.Right)
-        {
-            var average = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards);
-            playerRightSideCanvas.text = "Average: " + average.ToString("F2");
-        }
-        else if (spawnerSide == SpawnerSide.Left)
-        {
-            var average = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedLeftCards);
-            playerLeftSideCanvas.text = "Average: " + average.ToString("F2");
-        }
+        var team = spawnerSide == SpawnerSide.Right ? playerSelectedRightCards : playerSelectedLeftCards;
+        var average = customWeightingStats.CalculateAverageStatsByTeam(team);
+        var canvas = spawnerSide == SpawnerSide.Right ? playerRightSideCanvas : playerLeftSideCanvas;
+        canvas.text = $"Average: {average:F2}";
+        OnPlayerStatsChanged?.Invoke(this, new PlayerStatsChangedEventArgs { spawnerSide = spawnerSide, playerStats = average });
     }
 
     public void CalculateAverageStatsByTeam()
@@ -121,4 +123,6 @@ public class GameLobby : MonoBehaviour
         float teamAverage = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards);
         Debug.Log("Team Average: " + teamAverage);
     }
+
+
 }
