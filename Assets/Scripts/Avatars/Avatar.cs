@@ -1,7 +1,23 @@
+using System;
 using UnityEngine;
 
 public class Avatar : MonoBehaviour
 {
+    [SerializeField] private AvatarStateMachine avatarStateMachine;
+
+    private AvatarState avatarState;
+    public AvatarState AvatarState
+    {
+        get
+        {
+            return avatarState;
+        }
+        set
+        {
+            avatarState = value;
+        }
+    }
+
     private Material avatarMaterial;
     private CardData cardData;
 
@@ -17,6 +33,14 @@ public class Avatar : MonoBehaviour
             currentSpawnSide = value;
         }
     }
+
+    void Start()
+    {
+        avatarStateMachine = new AvatarStateMachine(this);
+        avatarStateMachine.Initialize(avatarStateMachine.avatarIdleState);
+    }
+
+
 
     public void SetAvatarData(CardData cardData)
     {
@@ -39,3 +63,4 @@ public class Avatar : MonoBehaviour
         GameLobby.Instance.CalculateAverageStatsByPlayer(this.currentSpawnSide);
     }
 }
+

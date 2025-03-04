@@ -21,16 +21,16 @@ public class CardObjectSpawner : MonoBehaviour
     [SerializeField] private Transform initialTargetLeftPoint;
     [SerializeField] private float spacing;       // Spacing between cards
 
-    private List<Avatar> playerSelectedRightCards;
-    private List<Avatar> playerSelectedLeftCards;
+    private List<Avatar> playerSelectedRightAvatars;
+    private List<Avatar> playerSelectedLeftAvatars;
     private bool isMoving = false;  // Ensures sequential movement
     private Transform targetPoint;
 
     private void Start()
     {
         currentSpawnSide = SpawnerSide.None;
-        playerSelectedRightCards = new List<Avatar>();
-        playerSelectedLeftCards = new List<Avatar>();
+        playerSelectedRightAvatars = new List<Avatar>();
+        playerSelectedLeftAvatars = new List<Avatar>();
     }
 
     public void SpawnEntity(CardData cardData)
@@ -151,13 +151,13 @@ public class CardObjectSpawner : MonoBehaviour
         SpawnerSide spawnerSide = avatar.GetComponent<Avatar>().CurrentSpawnSide;
         if (spawnerSide == SpawnerSide.Right)
         {
-            playerSelectedRightCards.Add(avatar.GetComponent<Avatar>());
-            Debug.Log("Player Selected Right Cards: " + playerSelectedRightCards.Count);
+            playerSelectedRightAvatars.Add(avatar.GetComponent<Avatar>());
+            Debug.Log("Player Selected Right Cards: " + playerSelectedRightAvatars.Count);
         }
         else if (spawnerSide == SpawnerSide.Left)
         {
-            playerSelectedLeftCards.Add(avatar.GetComponent<Avatar>());
-            Debug.Log("Player Selected Left Cards: " + playerSelectedLeftCards.Count);
+            playerSelectedLeftAvatars.Add(avatar.GetComponent<Avatar>());
+            Debug.Log("Player Selected Left Cards: " + playerSelectedLeftAvatars.Count);
         }
     }
 
@@ -185,14 +185,30 @@ public class CardObjectSpawner : MonoBehaviour
         }
     }
 
-    public Transform MoveToInitialRightPoint()
+
+    //Pulling and Pulled Animations
+    private void StartPullingAnimation()
     {
-        return initialTargetRightPoint;
+        DOTween.Sequence()
+            .Append(transform.DOShakePosition(0.5f, 0.1f, 10, 90, true));
     }
 
-    public Transform MoveToInitialLeftPoint()
+    private void StopPullingAnimation()
     {
-        return initialTargetLeftPoint;
+        DOTween.Sequence()
+            .Append(transform.DOShakePosition(0.5f, 0.1f, 10, 90, true));
+    }
+
+    public void StartPulledAnimation()
+    {
+        DOTween.Sequence()
+            .Append(transform.DOShakePosition(0.5f, 0.1f, 10, 90, true));
+    }
+
+    public void StopPulledAnimation()
+    {
+        DOTween.Sequence()
+            .Append(transform.DOShakePosition(0.5f, 0.1f, 10, 90, true));
     }
 
 
