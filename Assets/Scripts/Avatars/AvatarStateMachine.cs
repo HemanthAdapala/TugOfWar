@@ -16,43 +16,31 @@ public class AvatarStateMachine : MonoBehaviour
     public AvatarPullingState avatarPullingState;
     public AvatarPulledState avatarPulledState;
 
-    [SerializeField] private AvatarAnimator avatarAnimator;
-    [SerializeField] private AvatarAudio avatarAudio;
-    [SerializeField] private AvatarMovement avatarMovement;
 
-    private void InitializeAvatarComponents()
-    {
-        avatarAnimator = this.gameObject.GetComponent<AvatarAnimator>();
-        avatarAudio = this.gameObject.GetComponent<AvatarAudio>();
-        avatarMovement = this.gameObject.GetComponent<AvatarMovement>();
-    }
 
     public void Initialize(IAvatarState state)
     {
         currentState = state;
-        currentState.EnterState(this);
-        if (avatarAnimator == null || avatarAudio == null || avatarMovement == null)
-        {
-            InitializeAvatarComponents();
-        }
+        currentState.EnterState();
     }
 
     public void TransitionToState(IAvatarState state)
     {
-        currentState.ExitState(this);
+        currentState.ExitState();
         currentState = state;
-        currentState.EnterState(this);
+        currentState.EnterState();
     }
 
     public void Update()
     {
-        currentState.UpdateState(this);
+        if (currentState == null) return;
+        currentState.UpdateState();
     }
 }
 
 public interface IAvatarState
 {
-    void EnterState(AvatarStateMachine avatarStateMachine);
-    void UpdateState(AvatarStateMachine avatarStateMachine);
-    void ExitState(AvatarStateMachine avatarStateMachine);
+    void EnterState();
+    void UpdateState();
+    void ExitState();
 }

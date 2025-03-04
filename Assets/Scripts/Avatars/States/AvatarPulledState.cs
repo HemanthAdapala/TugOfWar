@@ -9,17 +9,17 @@ public class AvatarPulledState : IAvatarState
         this.avatar = avatar;
     }
 
-    public void EnterState(AvatarStateMachine avatarStateMachine)
+    public void EnterState()
     {
         DebugHelper.LogColor("AvatarPulledEnterState", Color.green);
     }
 
-    public void ExitState(AvatarStateMachine avatarStateMachine)
+    public void ExitState()
     {
         DebugHelper.LogColor("AvatarPulledExitState", Color.green);
     }
 
-    public void UpdateState(AvatarStateMachine avatarStateMachine)
+    public void UpdateState()
     {
         DebugHelper.LogColor("AvatarPulledUpdateState", Color.green);
     }

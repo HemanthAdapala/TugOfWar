@@ -9,18 +9,18 @@ public class AvatarIdleState : IAvatarState
         this.avatar = avatar;
     }
 
-    public void EnterState(AvatarStateMachine avatarStateMachine)
+    public void EnterState()
     {
-        DebugHelper.LogColor("AvatarIdleState", Color.green);
+        DebugHelper.LogColor("AvatarIdleEnterState", Color.green);
     }
 
-    public void ExitState(AvatarStateMachine avatarStateMachine)
+    public void ExitState()
     {
-        DebugHelper.LogColor("AvatarExitState", Color.red);
+        DebugHelper.LogColor("AvatarIdleExitState", Color.red);
     }
 
-    public void UpdateState(AvatarStateMachine avatarStateMachine)
+    public void UpdateState()
     {
-        DebugHelper.LogColor("AvatarUpdateState", Color.blue);
+        DebugHelper.LogColor("AvatarIdleUpdateState", Color.blue);
     }
 }

@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarStateMachine: {fileID: -7985876663162476408}
+  avatarAnimator: {fileID: -5299360402696489265}
+  avatarAudio: {fileID: 333032560598706279}
+  avatarMovement: {fileID: -5728570041505585232}
 --- !u!114 &-7985876663162476408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,9 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b34dd96e16c0d2458dcb3949df0411a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatarAnimator: {fileID: -5299360402696489265}
-  avatarAudio: {fileID: 333032560598706279}
-  avatarMovement: {fileID: -5728570041505585232}
 --- !u!114 &-5299360402696489265
 MonoBehaviour:
   m_ObjectHideFlags: 0

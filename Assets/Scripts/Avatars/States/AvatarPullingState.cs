@@ -9,17 +9,17 @@ public class AvatarPullingState : IAvatarState
         this.avatar = avatar;
     }
 
-    public void EnterState(AvatarStateMachine avatarStateMachine)
+    public void EnterState()
     {
         DebugHelper.LogColor("AvatarPullingEnterState", Color.green);
     }
 
-    public void ExitState(AvatarStateMachine avatarStateMachine)
+    public void ExitState()
     {
         DebugHelper.LogColor("AvatarPullingExitState", Color.green);
     }
 
-    public void UpdateState(AvatarStateMachine avatarStateMachine)
+    public void UpdateState()
     {
         DebugHelper.LogColor("AvatarPullingUpdateState", Color.green);
     }
