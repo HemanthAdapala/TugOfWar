@@ -145,11 +145,11 @@ public class GameLobby : MonoBehaviour
     {
         if (side == SpawnerSide.Right)
         {
-            return playerSelectedRightCards[playerSelectedRightCards.Count - 2].transform;
+            return playerSelectedRightCards[playerSelectedRightCards.Count - 1].transform;
         }
         else if (side == SpawnerSide.Left)
         {
-            return playerSelectedLeftCards[playerSelectedLeftCards.Count - 2].transform;
+            return playerSelectedLeftCards[playerSelectedLeftCards.Count - 1].transform;
         }
         else
         {
@@ -166,10 +166,14 @@ public class GameLobby : MonoBehaviour
         OnPlayerStatsChanged?.Invoke(this, new PlayerStatsChangedEventArgs { spawnerSide = spawnerSide, playerStats = average });
     }
 
-    public void CalculateAverageStatsByTeam()
+    public float GetOpponentTeamAverage(SpawnerSide spawnerSide)
     {
-        float teamAverage = customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards);
-        Debug.Log("Team Average: " + teamAverage);
+        return spawnerSide == SpawnerSide.Right ? customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedRightCards) : customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedLeftCards);
+    }
+
+    public float GetPlayerTeamAverage(SpawnerSide spawnerSide)
+    {
+        return spawnerSide == SpawnerSide.Right ? customWeightingStats.CalculateAverageStatsByTeam(playerSelectedRightCards) : customWeightingStats.CalculateAverageStatsByTeam(playerSelectedLeftCards);
     }
 
 

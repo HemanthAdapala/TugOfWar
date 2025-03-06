@@ -16,11 +16,11 @@ public class AvatarPulledState : IAvatarState
 
     public void ExitState()
     {
-        DebugHelper.LogColor("AvatarPulledExitState", Color.green);
+        DebugHelper.LogColor("AvatarPulledExitState", Color.red);
     }
 
     public void UpdateState()
     {
-        DebugHelper.LogColor("AvatarPulledUpdateState", Color.green);
+        DebugHelper.LogColor("AvatarPulledUpdateState", Color.blue);
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 public class Avatar : MonoBehaviour
 {
     [SerializeField] private AvatarStateMachine avatarStateMachine;
-    [SerializeField] private AvatarAnimator avatarAnimator;
-    [SerializeField] private AvatarAudio avatarAudio;
-    [SerializeField] private AvatarMovement avatarMovement;
+    [SerializeField] public AvatarAnimator avatarAnimator;
+    [SerializeField] public AvatarAudio avatarAudio;
+    [SerializeField] public AvatarMovement avatarMovement;
 
     private AvatarState avatarState;
     public AvatarState AvatarState
@@ -45,7 +45,7 @@ public class Avatar : MonoBehaviour
         avatarMovement = this.gameObject.GetComponent<AvatarMovement>();
     }
 
-    void Start()
+    void InitializeStateMachine()
     {
         avatarStateMachine = new AvatarStateMachine(this);
         avatarStateMachine.Initialize(avatarStateMachine.avatarIdleState);
@@ -55,28 +55,26 @@ public class Avatar : MonoBehaviour
         }
     }
 
-    public void SetAvatarData(CardData cardData)
+    void FixedUpdate()
+    {
+        avatarStateMachine.Update();
+    }
+
+    public void SetAvatarData(CardData cardData, SpawnerSide currentSpawnSide)
     {
         this.cardData = cardData;
         avatarMaterial = this.gameObject.GetComponent<Renderer>().material;
         avatarMaterial.color = cardData.cardColor;
+        this.currentSpawnSide = currentSpawnSide;
+        GameLobby.Instance.CalculateAverageStatsByPlayer(this.currentSpawnSide);
+        InitializeStateMachine();
+        //Transition to pulling state
+        avatarStateMachine.TransitionToState(avatarStateMachine.avatarPullingState);
     }
 
     public CardData GetCardDataOfAvatar()
     {
         return cardData;
-    }
-
-    public void MovedToDestination(SpawnerSide currentSpawnSide)
-    {
-        Debug.Log("Avatar moved to destination!");
-        this.currentSpawnSide = currentSpawnSide;
-        Debug.Log("Current Spawn Side: " + this.currentSpawnSide);
-        //Calculate the Average by player if there is only one player or by team if there are multiple players from GameLobby
-        GameLobby.Instance.CalculateAverageStatsByPlayer(this.currentSpawnSide);
-        //TODO:- This is just for testing
-        //Need to check the conditions who is gonna pull based on average stats
-        avatarStateMachine.TransitionToState(avatarStateMachine.avatarPullingState);
     }
 }
 

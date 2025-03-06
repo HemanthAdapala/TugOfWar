@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1b8f59c97298d43b59df71a741e6a8, type: 3}
   m_Name: Wind Dancer
   m_EditorClassIdentifier: 
-  avatarName: Swift Striker
+  avatarName: Wind Dancer
   avatarPrefab: {fileID: 2394210006920502325, guid: 484c9a9b4b3dbc642818f2702a9005ad, type: 3}
+  mysteryBoxPrefab: {fileID: 8778105463224557086, guid: 1908d3e3afe716d40a7679ebc01ad937, type: 3}

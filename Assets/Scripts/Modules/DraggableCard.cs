@@ -43,16 +43,18 @@ public class DraggableCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 Debug.Log("Card dropped on cube!");
                 var cardObjectSpawner = hit.collider.GetComponent<CardObjectSpawner>();
-                if(cardObjectSpawner){
+                if (cardObjectSpawner)
+                {
                     var cardUI = GetComponentInParent<CardUI>();
                     //Raise an event to the CardsPanelController to update the slider value
                     CardsPanelController.Instance.UpdateSliderValue(cardUI.GetCardValue());
-                    cardObjectSpawner.SpawnEntity(cardUI.GetCardData());
+                    //cardObjectSpawner.SpawnEntity(cardUI.GetCardData());
+                    cardObjectSpawner.SpawnMysteryBox(cardUI.GetCardData());
                     //Remove the card from the list of spawned cards
                     CardsPanelController.Instance.RemoveCardFromList(cardUI);
                 }
                 // Trigger cube logic here (e.g., hit.collider.GetComponent<Cube>().OnCardDropped());
-                
+
             }
         }
         else

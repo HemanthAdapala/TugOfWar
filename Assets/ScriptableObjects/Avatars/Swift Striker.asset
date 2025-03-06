@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarName: Swift Striker
   avatarPrefab: {fileID: 2394210006920502325, guid: 484c9a9b4b3dbc642818f2702a9005ad, type: 3}
+  mysteryBoxPrefab: {fileID: 8778105463224557086, guid: 1908d3e3afe716d40a7679ebc01ad937, type: 3}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AvatarStateMachine : MonoBehaviour
+public class AvatarStateMachine
 {
     public AvatarStateMachine(Avatar avatar)
     {
@@ -10,7 +10,7 @@ public class AvatarStateMachine : MonoBehaviour
     }
 
 
-    public IAvatarState currentState { get; private set; }
+    public IAvatarState CurrentState { get; private set; }
 
     public AvatarIdleState avatarIdleState;
     public AvatarPullingState avatarPullingState;
@@ -20,21 +20,21 @@ public class AvatarStateMachine : MonoBehaviour
 
     public void Initialize(IAvatarState state)
     {
-        currentState = state;
-        currentState.EnterState();
+        CurrentState = state;
+        state.EnterState();
     }
 
     public void TransitionToState(IAvatarState state)
     {
-        currentState.ExitState();
-        currentState = state;
-        currentState.EnterState();
+        CurrentState.ExitState();
+        CurrentState = state;
+        state.EnterState();
     }
 
     public void Update()
     {
-        if (currentState == null) return;
-        currentState.UpdateState();
+        if (CurrentState == null) return;
+        CurrentState.UpdateState();
     }
 }
 

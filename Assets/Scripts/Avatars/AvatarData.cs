@@ -5,10 +5,12 @@ public class AvatarData : ScriptableObject
 {
     public string avatarName;
     public GameObject avatarPrefab;
+    public GameObject mysteryBoxPrefab;
 
     public void OnValidate()
     {
-        if(string.IsNullOrEmpty(avatarName) || avatarName != this.name){
+        if (string.IsNullOrEmpty(avatarName) || avatarName != this.name)
+        {
             avatarName = this.name;
         }
     }
