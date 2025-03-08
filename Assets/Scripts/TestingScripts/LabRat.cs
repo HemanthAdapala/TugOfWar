@@ -1,41 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LabRat : MonoBehaviour
 {
-    public List<int> duplicateArr = new List<int>();
+    // public float speed = 10f;
+    // private Rigidbody rb;
 
-    void Start()
-    {
-        int[] arr = { 1, 2, 3, 4, 5, 6, 3, 7, 8, 9, 1 };
+    // void Start()
+    // {
+    //     rb = GetComponent<Rigidbody>();
+    //     rb.freezeRotation = true;
+    // }
 
-        // Call the function to find duplicates
-        int duplicateelements = FindDuplicates(arr);
-    }
+    // void FixedUpdate()
+    // {
+    //     float moveHorizontal = Input.GetAxis("Horizontal");
+    //     float moveVertical = Input.GetAxis("Vertical");
 
-
-    public int FindDuplicates(int[] arr)
-    {
-        int element = 0;
-        for (int i = 0; i < arr.Length; i++)
-        {
-            element = arr[i];
-            if (!duplicateArr.Contains(element))
-            {
-                duplicateArr.Add(arr[i]);
-            }
-            else
-            {
-                Debug.Log("Duplicate element found: " + element);
-            }
-        }
-
-        return element;
-
-
-    }
+    //     Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+    //     rb.AddForce(movement * speed);
+    // }
 }
 
 

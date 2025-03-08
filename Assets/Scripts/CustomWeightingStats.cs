@@ -72,4 +72,21 @@ public class CustomWeightingStats : ScriptableObject
         }
         return stats.Count > 0 ? sum / stats.Count : 0.0f;
     }
+
+    public float CalculateTeamComparison(SpawnerSide side)
+    {
+        float playerAverage = CalculateAverageStatsByTeam(
+            side == SpawnerSide.Right ?
+            GameLobby.Instance.playerSelectedRightCards :
+            GameLobby.Instance.playerSelectedLeftCards
+        );
+
+        float opponentAverage = CalculateAverageStatsByTeam(
+            side == SpawnerSide.Right ?
+            GameLobby.Instance.opponentSelectedRightCards :
+            GameLobby.Instance.opponentSelectedLeftCards
+        );
+
+        return playerAverage - opponentAverage;
+    }
 }

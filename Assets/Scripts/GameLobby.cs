@@ -34,10 +34,10 @@ public class GameLobby : MonoBehaviour
 
 
 
-    private List<Avatar> playerSelectedRightCards;
-    private List<Avatar> playerSelectedLeftCards;
-    private List<Avatar> opponentSelectedRightCards;
-    private List<Avatar> opponentSelectedLeftCards;
+    public List<Avatar> playerSelectedRightCards;
+    public List<Avatar> playerSelectedLeftCards;
+    public List<Avatar> opponentSelectedRightCards;
+    public List<Avatar> opponentSelectedLeftCards;
 
     private event EventHandler<PlayerStatsChangedEventArgs> OnPlayerStatsChanged;
     private class PlayerStatsChangedEventArgs : EventArgs
@@ -68,22 +68,21 @@ public class GameLobby : MonoBehaviour
 
     public IEnumerator StartRandomOpponentAverageCalculation()
     {
-        int randomDuration = 0;
         while (isOpponentAverageCalculated)
         {
-            randomDuration = UnityEngine.Random.Range(1, 10);
+            var randomDuration = UnityEngine.Random.Range(5, 10);
             DebugHelper.LogColor("Random Duration: " + randomDuration, Color.yellow);
-            var randomAverage = RandomOpponentAverageCalculation();
-            DebugHelper.LogColor("Random Average: " + randomAverage, Color.yellow);
-            opponentLeftSideAverage = randomAverage;
-            opponentRightSideAverage = randomAverage;
-            CalculateAverageStatsByOpponent();
+            opponentLeftSideAverage = RandomOpponentAverageCalculation();
+            opponentRightSideAverage = RandomOpponentAverageCalculation();
+            DebugHelper.LogColor("Random Average: " + opponentLeftSideAverage, Color.yellow);
+            DebugHelper.LogColor("Random Average: " + opponentRightSideAverage, Color.yellow);
+            SetTextForAverageStatsByOpponent();
 
             yield return new WaitForSeconds(randomDuration);
         }
     }
 
-    private void CalculateAverageStatsByOpponent()
+    private void SetTextForAverageStatsByOpponent()
     {
         opponentRightSideCanvas.text = $"Average: {opponentRightSideAverage:F2}";
         opponentLeftSideCanvas.text = $"Average: {opponentLeftSideAverage:F2}";
@@ -91,7 +90,7 @@ public class GameLobby : MonoBehaviour
 
     private float RandomOpponentAverageCalculation()
     {
-        return UnityEngine.Random.Range(1f, 100f);
+        return UnityEngine.Random.Range(10f, 99f);
     }
 
     #endregion
@@ -168,7 +167,9 @@ public class GameLobby : MonoBehaviour
 
     public float GetOpponentTeamAverage(SpawnerSide spawnerSide)
     {
-        return spawnerSide == SpawnerSide.Right ? customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedRightCards) : customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedLeftCards);
+        //TODO:- Remove this comment for Average
+        //return spawnerSide == SpawnerSide.Right ? customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedRightCards) : customWeightingStats.CalculateAverageStatsByTeam(opponentSelectedLeftCards);
+        return spawnerSide == SpawnerSide.Right ? opponentRightSideAverage : opponentLeftSideAverage;
     }
 
     public float GetPlayerTeamAverage(SpawnerSide spawnerSide)

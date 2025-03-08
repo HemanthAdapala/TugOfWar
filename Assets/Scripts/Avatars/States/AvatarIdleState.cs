@@ -19,7 +19,7 @@ public class AvatarIdleState : IAvatarState
         DebugHelper.LogColor("AvatarIdleExitState", Color.red);
     }
 
-    public void UpdateState()
+    public void FixedUpdateState()
     {
         DebugHelper.LogColor("AvatarIdleUpdateState", Color.blue);
     }

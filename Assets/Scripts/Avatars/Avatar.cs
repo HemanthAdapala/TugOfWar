@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AvatarAnimator))]
+[RequireComponent(typeof(AvatarAudio))]
+[RequireComponent(typeof(AvatarMovement))]
 public class Avatar : MonoBehaviour
 {
     [SerializeField] private AvatarStateMachine avatarStateMachine;
@@ -8,73 +11,67 @@ public class Avatar : MonoBehaviour
     [SerializeField] public AvatarAudio avatarAudio;
     [SerializeField] public AvatarMovement avatarMovement;
 
-    private AvatarState avatarState;
-    public AvatarState AvatarState
-    {
-        get
-        {
-            return avatarState;
-        }
-        set
-        {
-            avatarState = value;
-        }
-    }
 
+
+
+    private AvatarState avatarState;
     private Material avatarMaterial;
     private CardData cardData;
-
     private SpawnerSide currentSpawnSide;
-    public SpawnerSide CurrentSpawnSide
+
+    public AvatarState AvatarState
     {
-        get
-        {
-            return currentSpawnSide;
-        }
-        set
-        {
-            currentSpawnSide = value;
-        }
+        get => avatarState;
+        set => avatarState = value;
     }
 
+    public SpawnerSide CurrentSpawnSide
+    {
+        get => currentSpawnSide;
+        set => currentSpawnSide = value;
+    }
+
+    public CardData GetCardDataOfAvatar() => cardData;
+
+    private void Awake()
+    {
+        InitializeAvatarComponents();
+        InitializeStateMachine();
+    }
 
     private void InitializeAvatarComponents()
     {
-        avatarAnimator = this.gameObject.GetComponent<AvatarAnimator>();
-        avatarAudio = this.gameObject.GetComponent<AvatarAudio>();
-        avatarMovement = this.gameObject.GetComponent<AvatarMovement>();
+        avatarAnimator = GetComponent<AvatarAnimator>();
+        avatarAudio = GetComponent<AvatarAudio>();
+        avatarMovement = GetComponent<AvatarMovement>();
     }
 
-    void InitializeStateMachine()
+    private void InitializeStateMachine()
     {
-        avatarStateMachine = new AvatarStateMachine(this);
-        avatarStateMachine.Initialize(avatarStateMachine.avatarIdleState);
-        if (avatarAnimator == null || avatarAudio == null || avatarMovement == null)
+        if (avatarStateMachine == null)
         {
-            InitializeAvatarComponents();
+            avatarStateMachine = new AvatarStateMachine(this);
+            avatarStateMachine.Initialize(avatarStateMachine.avatarIdleState);
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        avatarStateMachine.Update();
+
+
+
+        avatarStateMachine.FixedUpdate();
+        avatarMovement.FixedUpdateMovement();
     }
 
     public void SetAvatarData(CardData cardData, SpawnerSide currentSpawnSide)
     {
         this.cardData = cardData;
-        avatarMaterial = this.gameObject.GetComponent<Renderer>().material;
-        avatarMaterial.color = cardData.cardColor;
         this.currentSpawnSide = currentSpawnSide;
-        GameLobby.Instance.CalculateAverageStatsByPlayer(this.currentSpawnSide);
-        InitializeStateMachine();
-        //Transition to pulling state
-        avatarStateMachine.TransitionToState(avatarStateMachine.avatarPullingState);
-    }
 
-    public CardData GetCardDataOfAvatar()
-    {
-        return cardData;
+        avatarMaterial = GetComponent<Renderer>().material;
+        avatarMaterial.color = cardData.cardColor;
+
+        GameLobby.Instance.CalculateAverageStatsByPlayer(this.currentSpawnSide);
     }
 }
-

@@ -2,52 +2,37 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestingScriot : MonoBehaviour
 {
-    private float moveUpTime = 5f;
-    private float stayUpTime = 5f;
-    private float moveDownTime = 5f;
-    private float stayDownTime = 5f;
-    
-    private bool isMoving = false;
-    
-    private Vector3 initialPosition;
-    private Vector3 startPos;
-    private Vector3 targetPos;
-    bool isMoved = false;
-    
+    public Button plusButton;
+    public Button minusButton;
+    public Rigidbody[] testObject;
 
-    private void Start()
+    public float speed = 1f;
+    public ForceMode forceMode = ForceMode.Force;
+
+    private float timer = 0f;
+    public float interval = 1f; // Execute every 1 second
+
+    private void FixedUpdate()
     {
-        initialPosition = transform.position;
-        startPos = transform.position;
-        targetPos = Vector3.up * 10f;
+        timer += Time.fixedDeltaTime;
+
+        if (timer >= interval)
+        {
+            timer = 0f; // Reset timer
+            MoveGameObject(); // Call the function every second
+        }
     }
 
-    private void Update()
+    private void MoveGameObject()
     {
-        var holdTimer = 0f;
-        transform.position = Vector3.MoveTowards(transform.position,targetPos,Time.deltaTime * moveUpTime);
-        startPos = transform.position;
-
-        if (startPos == targetPos)
+        for (int i = 0; i < testObject.Length; i++)
         {
-            isMoved = true;
-            while (isMoved)
-            {
-                holdTimer += Time.deltaTime;
-                Debug.Log(holdTimer);
-                if (holdTimer >= stayUpTime)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position,startPos,Time.deltaTime * moveDownTime);
-                    isMoved = false;
-                }
-            }
-            
-            
-            
+            Vector3 movement = new Vector3(0, 0, -1);
+            testObject[i].AddForce(movement * speed, forceMode);
         }
-        
     }
 }

@@ -31,16 +31,16 @@ public class AvatarStateMachine
         state.EnterState();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (CurrentState == null) return;
-        CurrentState.UpdateState();
+        CurrentState.FixedUpdateState();
     }
 }
 
 public interface IAvatarState
 {
     void EnterState();
-    void UpdateState();
+    void FixedUpdateState();
     void ExitState();
 }
